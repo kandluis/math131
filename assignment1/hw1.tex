@@ -1,0 +1,242 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage[margin=1in]{geometry}
+
+
+% Create answer counter to keep track of seperate responses
+\newcounter{AnswerCounter}
+\newcounter{SubAnswerCounter}
+\setcounter{AnswerCounter}{1}
+\setcounter{SubAnswerCounter}{1}
+
+% Create answer environment which uses counter
+\newenvironment{answer}[0]{
+  \setcounter{SubAnswerCounter}{1}
+  \bigskip
+  \textbf{Solution \arabic{AnswerCounter}}
+  \\
+  \begin{small}
+}{
+  \end{small}
+  \stepcounter{AnswerCounter}
+}
+
+\newenvironment{subanswer}[0]{
+  (\alph{SubAnswerCounter})
+}{
+ \bigskip
+  \stepcounter{SubAnswerCounter}
+}
+
+% Allows easy use of vectors
+\newcommand{\vect}[1]{\vec{\boldsymbol{#1}}}
+
+% Setting up the title
+\title{Mathematics 131 \\
+Topology I}
+\author{
+        Luis Antonio Perez \\
+        HUID: 70871564 \\
+        Harvard College \\
+        \href{mailto:luisperez@college.harvard.edu}{luisperez@college}
+}
+\date{\today}
+
+% Custom Header information on each page
+\pagestyle{fancy}
+\lhead{HUID: 70871564}
+\rhead{Perez - \thepage}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+% Title page is page 0
+\setcounter{page}{0}
+
+\begin{document}
+
+\clearpage
+\thispagestyle{empty}
+\maketitle
+\newpage
+\includepdf[landscape=false]{hw1_problems}
+\pagebreak
+\begin{answer}
+Let $\mathcal{A}$ be a non-empty collection of sets.\\
+\begin{subanswer}
+The statement that $x \in \bigcup_{A \in \mathcal{A}} \implies x \in A$ for at least one $A$ is \textbf{true}.
+\begin{proof}
+The proof follows from the definition. $x \in \bigcup_{A \in \mathcal{A}} \implies x \in \{ y \mid \bigvee_{A \in \mathcal{A}} y \in A \}$ which is the set that consists of all elements that are in at least one of the $A \in \mathcal{A}$.
+\end{proof}
+Similarly, the converse (if $x \in A$ for at least one $A \in \mathcal{A}$ then $x \in \bigcup_{A \in \mathcal{A}} A$) is also \textbf{true}.
+\begin{proof}
+The proof follows from the definition. See above.
+\end{proof}
+\end{subanswer}
+\begin{subanswer}
+The statement that $x \in \bigcup_{A \in \mathcal{A}} \implies x \in A$ for all $A \in \mathcal{A}$ is \textbf{false}.
+\begin{proof}
+We can proof this by counter-example. We have $x \in \bigcup_{A \in \mathcal{A}}$ where $x = 1$ and $\mathcal{A} = \{\{1\},\{2\}\}$. However, $x \notin A$ for all $A \in \mathcal{A}$. In particular $x = 1 \notin \{2\}$.
+\end{proof}
+However, the converse (if $x \in A$ for all $A \in \mathcal{A}$, then $x \in \bigcup_{A \in \mathcal{A}}A$) is \textbf{true}.
+\begin{proof}
+If $x \in A$ for all $A \in \mathcal{A}$, then $x \in A$ for at least $1$ $A$. Therefore, by the converse of part (a), the statement is \textbf{true}.
+\end{proof}
+\end{subanswer}
+\begin{subanswer}
+The statement $x \in \bigcap_{A \in \mathcal{A}} A \implies x \in A$ for at least one $A \in \mathcal{A}$ is \textbf{true}.
+\begin{proof}
+The above follows from the definition. If $x \in \bigcap_{A \in \mathcal{A}} A$ then $x \in \{ y \mid \bigwedge_{A \in \mathcal{A}} y \in A \}$, which means $x \in A$ for all $A \in \mathcal{A}$.
+\end{proof}
+However, the converse (if $x \in A$ for at least one $A \in \mathcal{A}$ then $x \in \bigcap_{A \in \mathcal{A}} A)$ is \textbf{false}.
+\begin{proof}
+We show by counter example. We have $x \in A$ for at least one $A$ but $x \notin \bigcap_{A \in \mathcal{A}} A$ for $x = 2$ and $\mathcal{A} = \{\{2,1\}, \{1\}\}$ so that $x = 2 \notin \bigcap_{A \in \mathcal{A}} A = \{1\}$.
+\end{proof}
+\end{subanswer}
+\begin{subanswer}
+The statement $x \in \bigcap_{A \in \mathcal{A}} A \implies x \in A$ for every $A \in \mathcal{A}$ is \textbf{true}.
+\begin{proof}
+The proof follows from the definition. The intersection consists of all points which are in shared by every set. Therefore if $x$ is in the intersection, it must be in each set.
+\end{proof}
+The converse (if $x \in A$ for every $A \in \mathcal{A}$ then $x \in \bigcap_{A \in \mathcal{A}} A$) is \textbf{true}
+\begin{proof}
+The proof follows from the definition. If $x$ is in every $A$, it is shared in common by all $A$, therefore it is in the intersection of all $A$.
+\end{proof}
+\end{subanswer}
+\end{answer}
+\begin{answer}
+If we have set $A$ such that $|A| = 2$, then $|\mathcal{P}{(A})| = 4$. There reason for this is that we can easily create a bijection between $\mathcal{P}{(A)}$ and the number of binary strings of length $|A|$. We introduce and ordering to $A$ such that each string of length $|A|$corresponds to the subset formed by taking the $i$-th element from $A$ if the $i$-th digit of the string is $1$ for each digit in the string. Similarly, each subset must consists of some elements of $A$ which are included, and some which are not, the total summing to $|A|$ so each subset corresponds to a binary string of length $|A| $where we set the $i$-th digit to $1$ if the subset includes the $i$-th element in $A$, and $0$ otherwise. This is a bijection.
+
+By the above, to obtain $|\mathcal{P}{(A)}|$, we can simply count the number of binary strings of length $|A|$. This is precisely $2^{|A|}$ by th product rule.
+
+By the above, we have:
+\begin{itemize}
+\item If $|A| = 2$, then $|\mathcal{P}{(A)}| = 4$.
+\item If $|A| = 1$, then $|\mathcal{P}{(A)}| = 2$ (to be more precise, $\mathcal{P}{(A)}$ consists of $\emptyset$ and $A$)
+\item If $|A| = 3$, then $|\mathcal{P}{(A)}| = 8$.
+\item If $|A| = 0$, then $|\mathcal{P}{(A)}| = 1$ (to be more precise, $\mathcal{P}{(A)}$ consists of $\emptyset$)
+\end{itemize}
+\end{answer}
+\begin{answer}
+\begin{subanswer}
+We first show that if $f:A \to B$ has a left inverse, $f$ is injective.
+\begin{proof}
+If $f$ has a left inverse, then there exists a function $g : B -> A$ such that $g \circ f : A \to A$ is the identity function. Then suppose there exists $x,y \in A$ such that $f(x) = f(y)$. Then we have the following:
+\begin{align*}
+x &= (g \circ f)(x) \tag{by definition of left inverse} \\
+&= g(f(x)) \\
+&= g(f(y)) \tag{equality of $f(x)$ and $f(y)$}\\
+&= (g \circ f)(y) = y
+\end{align*}
+Therefore, $f(x) = f(y) \implies x = y$ and $f$ is injective.
+\end{proof}
+Now we show that if $f$ has a right inverse, then $f$ is surjective.
+\begin{proof}
+Note that for every values $y \in B$, there exists a value $x \in A$ such that $y = f(x)$. In particular, $x = g(y)$ where $g$ is the right inverse of $f$. To see this, note:
+\begin{align*}
+f(g(y)) &= (f \circ g)(y) \\
+&= y \tag{by defintion of right inverse}
+\end{align*}
+\end{proof}
+\end{subanswer}
+\begin{subanswer}
+For a function that has a left inverse but not a right inverse, we can take $f: \mathbb{R} \to \mathbb{R} \setminus \{0\}$ defined by $f(x) = e^x$. Note that $f$ is not surjective because $e^x > 0$ for $x \in \mathbb{R}$. Then by the contrapositive of the second statement above, if $f$ is not surjective, $f$ does not have a right inverse. However, we can let $ g: \mathbb{R} \setminus \{0\}$ given by $g(x) = \ln |x|$ as the left inverse of $f$ because $(g \circ f)(x) = g(f(x)) = \ln |e^x| = \ln e^x = x$ for all $x \in \mathbb{R}$.
+\end{subanswer}\\
+\begin{subanswer}
+For a function that has a right inverse but not a left inverse, we can take $f: \mathbb{R} \to [0,\infty)$ defined by $f(x) = x^2$. First note that the function is not injective (we have $f(x) = f(-x)$), so by the contrapositive of the first statement in (a), it has no left inverse. However, we have that $g: \mathbb[0,\infty) \to \mathbb{R}$ defined by $g = \sqrt{x}$ is the right inverse of $f$ becase $(f \circ g)(x) = f(g(x)) = (\sqrt{x})^2 = x$ for all $x \in [0,\infty)$.
+\end{subanswer}\\
+\begin{subanswer}
+Yes, a function can have more than one right inverse. Take the case of the function $f$ defined in (c). An alternative right inverse is $g:[0,\infty) \to \mathbb{R}$ given by $g(x) = -\sqrt{x}$ because $(f \circ g)(x) = (-\sqrt{x})^2 = x$ for all $x \in [0,\infty)$. \\
+Similarly, an alternative right inverse to the function in (b) is given by $g: \mathbb{R} \setminus \{0\} \to \mathbb{R}$ given by $g(x) = \ln \max(x,0)$ since $(g \circ f)(x) = g(f(x)) = \ln \max(e^x,0) = \ln e^x = x$ for all $x \in \mathbb{R}$.
+\end{subanswer}
+\begin{subanswer}
+We show that if $f$ has both a right inverse $h$ and a left inverse $g$, then $f$ is bijective and $f^{-1} = g = h$.
+\begin{proof}
+By (a), the existence of a left and right inverse implies that $f$ is both surjective and injective, therefore $f$ is bijective by definition. We have that for all $y \in B$ there exists $x \in A$ such that $y = f(x)$. Applying the left inverse, we have $g(y) = x$ for all $y \in B$. However, we also have $y = f(x)$ and $y = f(h(y))$ (by right inverse), which implies $f(x) = f(h(y))$ and since $f$ is injective, $x = h(y)$ for all $y$. Therefore, we can define $f^{-1} = g = h$.
+\end{proof}
+\end{subanswer}
+\end{answer}
+\begin{answer}
+The relationship defined such that two points $(x_0,y_0)$ and $(x_1,y_1)$ are equivalent $\iff y_0 - x_0^2 = y_1 - x_1^2$ is an equivalence relation. This is because equality is an equivalence relation, but more directly we also have:
+\begin{itemize}
+\item It is symmetric. $(x,y) \sim (x,y)$ because $y - x^2 = y - x^2$.
+\item It is reflexive. If $(x_0,y_0) \sim (x_1,y_1)$, then $(x_1,y_1) \sim (x_0,y_1)$ because $y_0 = x_0^2 = y_1 - x_1^2 \implies y_1 - x_1^2 = y_0 - x_1^2$
+\item It is transitive. If $(x_0,y_0) \sim (x_1,y_1)$ and $(x_1,y_1) \sim (x_2,y_2)$ then $(x_0,y_0) \sim (x_2,y_2)$ because $y_0 - x_0^2 = y_1 - x_1^2 = y_2 - x_2^2$.
+\end{itemize}
+The equivalence classes are the sets of points on the parabolas of the for $y = x^2 + c$ for $c \in \mathbb{R}$.
+\end{answer}
+\begin{answer}
+Suppose we have a surjective function $f: A \to B$ and we define the relation $a_0 \sim a_1$ as $f(a_0) = f(a_1)$.\\
+\begin{subanswer}
+Then the relation is an equivalence relation. Symmetry hold because $f(a) = f(a)$ for all functions, reflexivity because $f(a_0) = f(a_1) \implies f(a_1) = f(a_0)$ for all functions, and transitivity because $f(a_0) = f(a_1) = f(a_2) \implies f(a_0) = f(a_2)$ (all the above almost trivially).
+\end{subanswer}\\
+\begin{subanswer}
+Each equivalence class consists of all inputs, $a \in A$ such that $f(a)$ produces the same output. Each such class can be associated with the unique $y \in B$ such that $f(a) =y$ for some $a$ in the class. This is an injection from $A^*$ to $B$. By surjectivity, for each $y \in B$, there exist $a \in A$ such that $f(a) = y$, therefore each element $y \in B$ can be associated with the equivalence class containing $a$. This is a surjection between $A^*$ and $B$. Therefore there exists a bijective correspondance between $A^*$ and $B$. More precisely, we can simply have $g(a^*) = f(a)$ such that $a \in a^*$.
+\end{subanswer}
+\end{answer}\\
+\begin{answer}
+We prove that the relation defined by $(x_0,y_0) < (x_1,y_1)$ if $y_0 - x_0^2 < y_1 - x_1^2$ or $y_0 - x_0^2 = y_1 - x_1^2$ and $x_0 < x_1$ is an order relation.
+\begin{itemize}
+\item It is comparable. If $(x_0,y_0) \neq (x_1,y_1)$ then we have a few possibilities: (1) if $x_0 \neq x_1$ then we are done because at least one of the conditions must be met (for all $a,b \in \mathbb{R}$ either $a < b, b < a,$ or $a = b)$. In the first two cases we are done, and in the second we have inequality in the $x$ coordinate), (2) if $x_0 = x_1$, then it must be the case that $y_0 \neq y_1 \implies y_0 - x_0^2 \neq y_1 - x_1^2$ and we are done.
+\item It is non-reflexive. If $(x_0,y_0) < (x_1,y_1)$, then either $y_0 - x_0^2 = y_1 - x_1^2$ and $x_0 \neq y_0$ which immediate implies $(x_0,y_0) \neq (x_1,y_1)$, or $y_0 - x_0^2 < y_1 -x_1^2$ which cannot be true if both $x_0 = x_1$ and $y_0 = y_1$, therefore at least one must differ, and $(x_0,y_0) \neq (x_1, y_1)$.
+\item It is transitive. If $(x_0,y_0) < (x_1,y_1) < (x_2,y_2)$, then either $y_0 - x_0^2 < y_1 - x_1^2 < y_2 - x_2^2$, or $y_0 - x_0^2 < y_1 - x_1^2 = y_2 - x_2^2$, or $y_0 - x_0^2 = y_1 - x_1^2 < y_2 - x_2^2$, or $y_0 - x_0^2 = y_1 - x_1^2 = y_2 - x_2^2$ and $x_0 < x_1 < x_2$ all of which implies $(x_0,y_0) < (x_2,y_2)$.
+\end{itemize}
+Geometrically, the order relationship consists of the following. For any two points $(x_0,y_0)$ and $(x_1,y_1)$, we find the parabolas such that $y_0 = x_0^2 + c_0$ and $y_1 = x_1^2 + c_1$. If the parabolas are distinct, then the point on the parabola translated further up is larger. Otherwise, if the points lie on the same parabola, then the larger point is the one that lies further right.
+\end{answer}
+\begin{answer}
+We consider the map given by $f: [0,1] \to \mathbb{R}$ given by:
+\[
+f(x) = \frac{x}{1-x^2}
+\]
+\begin{subanswer}
+We first show that $f$ is order-preserving.
+\begin{proof}
+We show that $f$ is strictly increasing by showing $f'$ is strictly positive on $[0,1]$. We have:
+\begin{align*}
+f'(x) = \frac{1 + x^2}{(1-x^2)^2} > 0
+\end{align*}
+which is strictly positive on $[0,1]$, therefore $f$ is strictly increasing, and $a < b \implies f(a) < f(b)$ for all $a,b \in [0,1]$.
+\end{proof}
+\begin{subanswer}
+We show that the function $g: [0,1] \to \mathbb{R}$:
+\begin{align*}
+g(y) = \frac{2y}{\sqrt{1 + (1 + 4y^2)}}
+\end{align*}
+is both a right and left inverse of $f$.
+\begin{proof}
+We first note that $f$ is bijective, therefore if $g$ is the left inverse, it is also the right inverse as shown by a previous problem. Therefore, it suffices to show that $(g \circ f) : \mathbb{R} \to \mathbb{R}$ is the identity function.
+\begin{align*}
+(g \circ f)(x) &= g(f(x)) \\
+&= \frac{2\left(\frac{x}{1-x^2}\right)}{1 + \sqrt{1 + 4\left(\frac{x}{1-x^2} \right)^2}} \\
+&= \frac{2x}{(1-x^2) + \sqrt{(1-x^2)^2 + 4x^2}} \\
+&= \frac{2x}{(1-x^2) + \sqrt{1 + 2x^2 + x^4}} \\
+&= \frac{2x}{(1 - x^2) + (1 + x^2)} \\
+&= x
+\end{align*}
+The above shows that $g$ is the left inverse, and by bijection of $f$, it must also be the right inverse.
+\end{proof}
+\end{subanswer}
+\end{subanswer}
+\end{answer}
+\begin{answer}
+We consider multiple order relations on $Z_+ \times Z_+$.
+\begin{itemize}
+\item[(i)] In the dictionary order, all elements $(x,y)$ except those with $y = 1$ have an immediate predecessor of the form $(x,y-1)$. If $y = 1$, then the next smallest element would the largest element on vertical lines $x-1$, but no such element exists. The set also has a smallest element which is given by $(1,1)$ as no elements exist to the left or below.
+\item[(ii)] In the order defined by $(x_0,y_0) < (x_1,y_1)$ if $x_0 - y_0 < x_1 - y_1$ or $x_0 - y_0 = x_1 - y_1$ and $y_0 < y_1$, all elements $(x,y)$ except for those where $x = 1$ or $y = 1$ have an immediate predecessor of the form $(x - 1, y - 1)$. The order induced consists of lines of the form $y = x + b$. Points on lines with a lower y-intercept are larger, and points on the same line with a higher y-coordinate are larger. The set has no smallest element since for any point $(x,y)$, the point $(x,y+1)$ is smaller.
+\item[(iii)] In the order defined by $(x_0,y_0) < (x_1,y_1)$ if $x_0 + y_0 < x_1 + y_1$ or $x_0 + y_0 = x_1 + y_1$ and $y_0 < y_1$, all elements $(x,y)$ except for those where $y=1$ has an immediate predecessor of the form $(x+1,y-1)$. The order induced consists of lines of the form $y = -x + b$. Points on lines with lower y-intercepts are smaller, and if on the same line, points with smaller $y$-coordinates are smaller. The smallest element in this set is given by $(1,1)$.
+\end{itemize}
+As for the order types, they are all different. From the immediate predecessors, we can see that the order type for (ii) is the dictionary order on $\mathbb{Z} \times \mathbb{Z}_+$ with the function $f(x,y) = (x-y, y)$ as the required, bijective, order-preserving correspondence. Similarly, the order type for (iii) is the dictionary order on $\mathbb{Z}_+$. Therefore, all of the order types are different.
+\end{answer}
+\begin{answer}
+The topology constructed from the basis consisting of the sets that are obtained by removing a finite number of points does not include the set $0 < x < 1$ as an open set.
+\begin{proof}
+In order for $A = \{x \mid 0 < x < 1 \}$ to be open, we must have that for any $p \in A$, there exists a $B$ in our basis such that $p \in B$ and $B \subset A$. However, while there exist an infinite number of $B$ such that $p \in B$, there does not exist any $B \subset A$ because it would require removing an infinite number of points from the real line. While we can remove any finite number of points by finitely intersecting sets in our basis, removing an interval is impossible.
+
+Along a similar line of reasoning, we can consider the complement of $A$. Note that the complement of $A$ is the union of two intervals, and is therefore not closed (only finite sets and all of $\mathbb{R}$ are closed), which implies that $A$ is not open.
+\end{proof}
+\end{answer}
+\pagebreak
+\end{document}
