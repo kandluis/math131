@@ -185,7 +185,7 @@ We prove that the relation defined by $(x_0,y_0) < (x_1,y_1)$ if $y_0 - x_0^2 < 
 \item It is transitive. If $(x_0,y_0) < (x_1,y_1) < (x_2,y_2)$, then either $y_0 - x_0^2 < y_1 - x_1^2 < y_2 - x_2^2$, or $y_0 - x_0^2 < y_1 - x_1^2 = y_2 - x_2^2$, or $y_0 - x_0^2 = y_1 - x_1^2 < y_2 - x_2^2$, or $y_0 - x_0^2 = y_1 - x_1^2 = y_2 - x_2^2$ and $x_0 < x_1 < x_2$ all of which implies $(x_0,y_0) < (x_2,y_2)$.
 \end{itemize}
 Geometrically, the order relationship consists of the following. For any two points $(x_0,y_0)$ and $(x_1,y_1)$, we find the parabolas such that $y_0 = x_0^2 + c_0$ and $y_1 = x_1^2 + c_1$. If the parabolas are distinct, then the point on the parabola translated further up is larger. Otherwise, if the points lie on the same parabola, then the larger point is the one that lies further right.
-\end{answer}
+\end{answer}\\
 \begin{answer}
 We consider the map given by $f: [0,1] \to \mathbb{R}$ given by:
 \[
@@ -228,14 +228,14 @@ We consider multiple order relations on $Z_+ \times Z_+$.
 \item[(ii)] In the order defined by $(x_0,y_0) < (x_1,y_1)$ if $x_0 - y_0 < x_1 - y_1$ or $x_0 - y_0 = x_1 - y_1$ and $y_0 < y_1$, all elements $(x,y)$ except for those where $x = 1$ or $y = 1$ have an immediate predecessor of the form $(x - 1, y - 1)$. The order induced consists of lines of the form $y = x + b$. Points on lines with a lower y-intercept are larger, and points on the same line with a higher y-coordinate are larger. The set has no smallest element since for any point $(x,y)$, the point $(x,y+1)$ is smaller.
 \item[(iii)] In the order defined by $(x_0,y_0) < (x_1,y_1)$ if $x_0 + y_0 < x_1 + y_1$ or $x_0 + y_0 = x_1 + y_1$ and $y_0 < y_1$, all elements $(x,y)$ except for those where $y=1$ has an immediate predecessor of the form $(x+1,y-1)$. The order induced consists of lines of the form $y = -x + b$. Points on lines with lower y-intercepts are smaller, and if on the same line, points with smaller $y$-coordinates are smaller. The smallest element in this set is given by $(1,1)$.
 \end{itemize}
-As for the order types, they are all different. From the immediate predecessors, we can see that the order type for (ii) is the dictionary order on $\mathbb{Z} \times \mathbb{Z}_+$ with the function $f(x,y) = (x-y, y)$ as the required, bijective, order-preserving correspondence. Similarly, the order type for (iii) is the dictionary order on $\mathbb{Z}_+$. Therefore, all of the order types are different.
-\end{answer}
+As for the order types, they are all different. From the immediate predecessors, we can see that the order type for (ii) is the dictionary order on $\mathbb{Z} \times \mathbb{Z}_+$ with the function $f(x,y) = (x-y, y)$ as the required, bijective, order-preserving correspondence. Similarly, the order type for (iii) is the dictionary order on $\mathbb{Z}_+$ with the function $f(x,y) = \frac{1}{2}(x+y-2)(x+y-1) + y$ as the required, bijectiver, order-preserving correspondence. Therefore, all of the order types are different.
+\end{answer}\\
 \begin{answer}
 The topology constructed from the basis consisting of the sets that are obtained by removing a finite number of points does not include the set $0 < x < 1$ as an open set.
 \begin{proof}
 In order for $A = \{x \mid 0 < x < 1 \}$ to be open, we must have that for any $p \in A$, there exists a $B$ in our basis such that $p \in B$ and $B \subset A$. However, while there exist an infinite number of $B$ such that $p \in B$, there does not exist any $B \subset A$ because it would require removing an infinite number of points from the real line. While we can remove any finite number of points by finitely intersecting sets in our basis, removing an interval is impossible.
 
-Along a similar line of reasoning, we can consider the complement of $A$. Note that the complement of $A$ is the union of two intervals, and is therefore not closed (only finite sets and all of $\mathbb{R}$ are closed), which implies that $A$ is not open.
+Along a similar line of reasoning, we can consider the complement of $A$. Note that the complement of $A$ is the union of two intervals, and is therefore not closed (only finite sets and all of $\mathbb{R}$ are closed under this topology), which implies that $A$ is not open.
 \end{proof}
 \end{answer}
 \pagebreak
