@@ -58,7 +58,7 @@ Topology I}
 
 \begin{document}
 \maketitle
-\includepdf[landscape=false]{hw2_problems}
+\pagebreak
 \begin{answer}[Page 91, \#1]
 We show that if $Y$ is a subspace of $X$ and $A$ is a subset of $Y$, then the topology A inherits as a subspace of $X$ is the same topology it inherits as the subspace of $Y$. We do this by showing that the bases for both topologies are the same.
 \begin{proof}
@@ -184,7 +184,32 @@ h^{-1}((y_1,y_2, \cdots)) &= ((\frac{y_1 - b}{a}, \frac{y_2 - b}{a}, \cdots))
 \end{align*}
 so we just need to proof $h$ is continuous on the product topology.
 \begin{proof}
-Interestingly, we simply need to prove that for $U$ open, $h^{-1}(U)$ is also open since $h,h^{-1}$ have the same general form, just with different $a,b \in \mathbb{R}^{\\omega}$. Take $x \in h^{-1}(U)$, then $y = f(x) \in U$ has a neighborhood $N \subset Y$ where $N$ is simply the product of $N_i$. Then the pre-image given as $\{x \mid a_1x + b \in B$.
+Interestingly, we simply need to prove that for $U$ open, $h^{-1}(U)$ is also open since $h,h^{-1}$ have the same general form, just with different $a,b \in \mathbb{R}^{\omega}$. Take $x \in h^{-1}(U)$, then $y = f(x) \in U$ has a neighborhood $N \subset Y$ where $N$ is simply the product of $N_i \in \mathbb{R}$ open (in either the box or product topology). Then the pre-image of each $N_i$ given as $\{x \mid a_kx + b_k \in N_k\}$ is also open in $\mathbb{R}$ by continuity of each coordinate transformation. Therefore, taking the product of these pre-images gives us a set $U' \subset X$ open (in both box and product topologies) such that $x \in U'$ and $U' \subset h^{-1}(U)$, which implies $h^{-1}(U)$ is open.
 \end{proof}
+\end{answer}
+
+\begin{answer}[Problem 1]
+\begin{subanswer}
+We proof that $f: I^2 \to I$ is injective. Suppose for contradiction we have $f(x_1,y_1) = f(x_2,y_2)$ for some $(x_1,y_1),(x_2,y_2) \in I^2$ and $(x_1,y_1) \neq (x_2,y_2)$. Then note that we ca write each decimal uniquely:
+\begin{align*}
+x_1 &= 0.k_{11}k_{12}k_{13}\cdots \\
+x_2 &= 0.k_{21}k_{22}k_{23} \cdots \\
+y_1 &= 0.j_{11}j_{12}j_{13} \cdots \\
+y_2 &= 0.j_{21}j_{22}j_{23}
+\end{align*}
+With the above, we have:
+\begin{align*}
+f(x_1,y_1) &= 0.k_{11}j_{11}k_{12}j_{12}k_{13}j_{13}\cdots \\
+f(x_2,y_2) &= 0.k_{21}j_{21}k_{22}j_{22}k_{23}j_{23}
+\end{align*}
+Since we do not allow repeating $9$s, each decimal representation is unique up to trailing $0$s. Therefore, the equality of the results implies that $k_{11} = k_{21}, k_{12} = k_{22}, k_{13} = k_{23}, \cdots, j_{11} = j_{21}, j_{12} = j_{22}, j_{13} = j_{23}, \cdots$. This implies that each decimal place in the expansion of $x_1$ is equal to $x_2$ (similarly for $y_1,y_2$), therefore $(x_1,y_1) = (x_2,y_2)$, a contradiction, so our assumption is false. This implies that $f$ is injective.
+\end{subanswer}
+
+\begin{subanswer}
+Now we show that $f$ is not continuous under the standard subspace topologies of $I^2$ and $I$.
+\begin{proof}
+We do this by example. Take $U = (0.1,0.2) \subset I$. Then $f^{-1}(U) = \{(x,y) \in I^2 \mid 0.1 < x < 0.2 \text{ or } x = 0.1, y > 0 \}$, which is not open under the standard subspace topology on $I^2$. Simply take the point $(0.1, 0.1) \in f^{-1}(U)$ and note that every neighborhood containing this point must necessarily contain points $(x,y)$ where $x < 0.1$, therefore it is not in the set. The set is neither open nor closed. This proves $f$ is not continuous.
+\end{proof}
+\end{subanswer}
 \end{answer}
 \end{document}
