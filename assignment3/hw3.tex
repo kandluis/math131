@@ -1,0 +1,215 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage[margin=1in]{geometry}
+
+
+% Create answer counter to keep track of seperate responses
+\newcounter{AnswerCounter}
+\newcounter{SubAnswerCounter}
+\setcounter{AnswerCounter}{1}
+\setcounter{SubAnswerCounter}{1}
+
+% Create answer environment which uses counter
+\newenvironment{answer}[0]{
+  \setcounter{SubAnswerCounter}{1}
+  \bigskip
+  \textbf{Solution \arabic{AnswerCounter}}
+  \\
+  \begin{small}
+}{
+  \end{small}
+  \stepcounter{AnswerCounter}
+}
+
+\newenvironment{subanswer}[0]{
+  (\alph{SubAnswerCounter})
+}{
+ \bigskip
+  \stepcounter{SubAnswerCounter}
+}
+
+% Allows easy use of vectors
+\newcommand{\vect}[1]{\vec{\boldsymbol{#1}}}
+
+% Setting up the title
+\title{Mathematics 131 \\
+Topology I}
+\author{
+        Luis Antonio Perez \\
+        HUID: 70871564 \\
+        Harvard College \\
+        \href{mailto:luisperez@college.harvard.edu}{luisperez@college}
+}
+\date{\today}
+
+% Custom Header information on each page
+\pagestyle{fancy}
+\lhead{HUID: 70871564}
+\rhead{Perez - \thepage}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+% Title page is page 0
+\setcounter{page}{0}
+
+\begin{document}
+\maketitle
+\pagebreak
+\begin{answer}[Page 91, \#1]
+We show that if $Y$ is a subspace of $X$ and $A$ is a subset of $Y$, then the topology A inherits as a subspace of $X$ is the same topology it inherits as the subspace of $Y$. We do this by showing that the bases for both topologies are the same.
+\begin{proof}
+Let $\mathcal{B}_X$ be the basis for the topology on space $X$. The basis of the topology inherited by $Y \subset X$ is $\mathcal{B}_Y = \{B \cap Y \mid B \in \mathcal{B}_X\}$. Then the topology inherited by $A \subset Y$is $\mathcal{B}_{A} = \{B \cap A \mid B \in \mathcal{B}_Y\} = \{B' \cap Y \cap A \mid B' \in \mathcal{B}_X\} = \{B' \cap A \mid B' \in \mathcal{B}_X \}$ by the fact that $A \subset Y \implies A \cap Y = A$. Note that this last set is precisely the basis of the topology $A$ inherits as a subspace of $X$. Therefore, the two basis are equivalent which implies the two topologies on the space $A$ are equivalent.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 92,\#6]
+We want to show that the countable collection $\mathcal{B} = \{(a,b) \times(c,d) \mid a < b, c < d, \text{ and } a,b,c,d \text{ are rational } \}$ is a basis for $\mathbb{R}^2$. We do this by first showing that the collection $\mathcal{C} = \{(a,b) \mid a < b \text{ and } a,b \text{ are rational} \}$ is a basis for $\mathbb{R}$. Then $\mathcal{C} \times \mathcal{C}$ is a basis for the product topology on $\mathbb{R}^2$.
+\begin{proof}
+We show that $\mathcal{C}$ satisfies the two properties of a basis. First note that for all $x \in \mathbb{R}$, $x \in C$ for some $C \in \mathcal{C}$ because for all $x$ there exists some rational $p,q$ such that $p < x < q$, therefore $x \in (p,q)$ with $C = (p,q) \in \mathcal{C}$. Now we show the second property. Suppose that $x \in (p_1,q_1) = C_1$ and $x \in (p_2,q_2) = C_2$ for $C_1,C_2 \in \mathcal{C}$. Then take $C_3 = (\max\{p_1,p_2\}, \min\{q_1,q_2\})$. Note that $C_3 \in \mathcal{C}$. Then note that $p_1 < x < q_1$ and $p_2 < x < q_2 \implies p_3 < x < q_3$ so that $x \in C_3$. Similarly, by construction, $C_3 = C_1 \cap C_2$. This shows that $\mathcal{C}$ is a basis of $\mathbb{R}$. This implies that $\mathcal{B} = \mathcal{C} \times \mathcal{C}$ is a basis of the product topology on $\mathbb{R}^2$.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 101, \#11]
+We show that the product of two Hausdorff spaces is a Hausdorff space.
+\begin{proof}
+Let $X,Y$ be two Hausdorff spaces. Then the space $X \times Y$ is a topological space since the product of two topological spaces is a topological space. We just need to show that for each pair $(x_1,y_1), (x_2,y_2) \in X \times Y$, there exist neighborhoods $U_1,U_2$ in the product topology, respectively, that are disjoint. Because $X,Y$ are Hausdorff, we know that there exist disjoint neighborhoods $U_{x_1},U_{x_2} \subset X$ and $U_{y_1},U_{y_2} \subset Y$ of $x_1,x_2,y_1,y_2$ respectively. Then we can simply take $U_1 = U_{x_1} \times U_{y_1}$ and $U_2 = U_{x_2} \times U_{y_2}$. It is clear that they are neighborhoods of $(x_1,y_1), (x_2,y_2)$ respectively. We also have that $U_1 \cap U_2 = (U_{x_1} \times U_{y_1}) \cap (U_{x_1} \times U_{y_1}) = (U_{x_1} \cap U_{y_1}) \times (U_{x_2} \times U_{y_2}) = \emptyset \times \emptyset = \emptyset$, so the sets are disjoint.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 101, \#12]
+We show that the subspace of a Hausdorff space is a Hausdorff space.
+\begin{proof}
+Let $X$ be a Hausdorff space. Then take $A \subset X$, and note that $A$ is a topological space because subsets of topological spaces are topological spaces. We show need to show that for each pair $a_1,a_2 \in A$, there exist disjoint neighborhoods $A_1,A_2$ of $a_1,a_2$ respectively. By the fact that $X$ is a Hausdorff space, there exists disjoint $U_1,U_2$, neighborhoods of $a_1,a_2$, respectively. We take $A_1 = U_1 \cap A$ and $A_2 = U_1 \cap A$. Note that $A_1,A_2$ are disjoint, contain $a_1,a_2$ (respectively), and are neighborhoods. Therefore $A$ is a Hausdorff space.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 101, \#13]
+We show that $X$ is Hausdorff if and only if the diagonal $\Delta = \{(x,x) \mid x \in X$ is closed in $X \times X$.
+\begin{proof}
+Suppose the diagonal is closed in $X \times X$. Then this means that $(X \times X) \setminus \Delta$ is open, so for every point $(x,y) \in X \times X$ such that $x \neq y$, we have a neighborhood of $U$ of $(x,y)$ entirely contained in $X \times X \setminus \Delta$ (intuitively, no points in this set have the same x/y components). We can write $U$ as $U_x \times U_y$ (projections of $U$ onto $X$) such that $x \in U_x$ and $y \in U_y$. Then note that $U_x \cap U_y = \emptyset$ since $\forall x \in U_x, y \in U_y, x \neq y$. Therefore, $U_x \in X$ and $U_y \in X$ are disjoint neighborhoods of $x,y$ respectively, so $X$ is Hausdorff.
+
+In the other direction, suppose $X$ is Hausdorff. Then we proof that $(X \times X) \setminus \Delta$ is open (this implies $\Delta$ is closed). Take any $(x,y) \in (X \times X) \setminus \Delta$. We know that $x \neq y$, so by the fact that $X$ is Hausdorff, there exists $U_x,U_y$ disjoint neighborhoods of $x,y$ respectively. Then $U = U_x \times U_y$ is open, contains $(x,y)$, and we have that for all $(a,b) \in U, a \neq b$, which implies $U \subset (X \times X) \setminus \Delta$. Therefore, $\Delta$ is closed because its complement is open.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 101, \#16]
+We consider the following topologies:
+\begin{enumerate}
+\item the standard topology
+\item the topology of $\mathbb{R}_K$
+\item the finite complement topology
+\item the upper limit topology
+\item the topology having all sets $(-\infty, a)$ as a basis.
+\end{enumerate}
+\begin{subanswer}
+We determine the closure of the set $K = \{\frac{1}{n} \mid n \in \mathbb{Z}_+\}$ for each of the topologies:
+\begin{enumerate}
+\item The closure is $K \cup \{0\}$ since $\frac{1}{n} \to 0$ under the standard topology.
+\item The closure is $K$, because $K$ is closed under the $K$-topology. To see this, note that the complement of $K$ is open because for any point $x \notin K$, we can find any interval containing $x \in (a,b)$, and $(a,b) - K$ is open and not in $K$.
+\item The closure is $\mathbb{R}$ since it is the only closed set to contain all of $K$.
+\item The closure is $K$, because $K$ is closed. The complement is open, since even for $0$, we have $[0,a) \cap K = \emptyset$ and open, so there always exists a neighborhood around $0 \notin K$.
+\item The closure of $K$ is $[0,\infty)$ since it is the intersection of all closed sets $C$ such that $K \subset C$.
+\end{enumerate}
+\end{subanswer}
+\begin{subanswer}
+We now determine if the topologies satisfy the Hausdorff or $T_1$ axioms.
+\begin{enumerate}
+\item The standard topology satisfies both axioms since for any two points $x,y$, we can always find disjoint intervals containing them (satisfying Hausdorff), and $T_1$ is weaker.
+\item The topology of $\mathbb{R}_K$ is Hausdorff (satisfies $T_1$ too) because it is finer than the standard topology.
+\item The finite complement topology is not Hausdorff because for any two points $x,y$, all open sets that contain these points must intersect because only a finite number of points can be non-overlapping in each. However, it does satisfy the $T_i$ axiom since for any point $p$, $X - p$ is open, so $p$ is closed.
+\item The upper limit topology is Hausdorff (for any two points, take the standard topology intervals and close the bottom end). Therefore, it satisfies the $T_1$ axiom.
+\item This topology is not Hausdorff because for any two points $x,y$, the interval $( -\infty,\min \{x,y\}$ is shared by all neighborhoods of both. It furthermore does not satisfy the $T_1$ axiom points $p$ are neither open nor closed.
+\end{enumerate}
+\end{subanswer}
+\end{answer}
+\begin{answer}[Page 111, \#9]
+Let $\{A_{\alpha}\}$ be a collection of subsets of $X$ such that $\bigcup_{\alpha} A_{\alpha} = X$. Let $f: X \to Y$, and suppose that $f \mid A_{\alpha}$ is continuous for each $\alpha$.\\
+
+\begin{subanswer}
+We first label each $f | A_{\alpha}$ as $f_{\alpha} : A_{\alpha} \to Y$.
+\begin{proof}Now suppose the collection is finite and each $A_{\alpha}$ is closed. Then take closed set $C \in Y$ and note that $f^{-1}(C) = \bigcup_{\alpha} f_{\alpha}^{-1}(C)$ by elementary set theory. By the continuity of each $f_{\alpha}$, each element in the union is closed. We therefore have the finite union of closed elements, which is closed. Therefore $f^{-1}(C)$ is closed, which implies $f$ is continuous.
+\end{proof}
+\end{subanswer}
+\begin{subanswer}
+Take $X = [0,1] \subset \mathbb{R}$ and $A_{0} = \{0\}, A_{n} = [\frac{1}{n},1]$ for $n \geq 1$ with the standard subspace topology. Then define $f: [0,1] \to \{0,1\}$ as:
+\[f(x) = \begin{cases}
+      0 & x = 0 \\
+      1 & x > 0
+   \end{cases}
+\]
+\begin{proof}
+Then note that our collection $\{A_{n}\}$ is countable, and each $A_n$ is closed. Furthermore, note that $f \mid A_{n}$ is continuous for all $A_n$. Lastly, note that $\bigcup_n A_n = [0,1] = X$. However, we have that $f^{-1}(1) = \bigcup_n A_n$ for $n \geq 1$ which is equal to $(0,1]$, which is not closed, therefore $f$ is not continuous.
+\end{proof}
+\end{subanswer}
+\begin{subanswer}
+We take $\{A_{\alpha}\}$ to be locally finite. This means that for all $x \in X$, there exists a neighborhood of $x$ that intersects $A_{\alpha}$ for only finitely many values of $\alpha$. We show that if in addition to being locally finite, each $A_{\alpha}$ is closed, $f$ is continuous.
+\begin{proof}
+Let $C \subset Y$ be closed. We prove that $f^{-1}(C)$ is closed by showing that it's complement is open. Suppose $x \notin f^{-1}(C)$. By the locally finite property of our collection, we know that there exists a neighborhood of $x$, call it $U$, which intersect $A_{i}$ only for some $0 \leq i \leq n$ finite. Then take $B_i = f_{i}^{-1}(C)$ for the finite set of $i$'s. By construction, $B_i \subset f^{-1}(C)$, so $x \notin B_i$. Furthermore, by continuity, each $B_i$ is closed in $A_i$ which implies closure in $X$. This means that there exists a neighborhood of $x$, call it $U_i$, such that $B_i \cap U_i = \emptyset$. Then the set $U \cup \bigcup_{0 \leq i \leq n} U_i$ is a neighborhood of $x$ (finite intersection of neighborhoods) which is fully contained in the complement of $f^{-1}(C)$. Therefore, $f^{-1}(C)$ is closed.
+\end{proof}
+\end{subanswer}
+\end{answer}
+\begin{answer}[Page 111. \#12]
+We show that if $F: X \times Y \to Z$ is continuous, then $F$ is continuous in each variable separately. This means that $\forall y_0 \in Y$, the map $h: X \to Z$ defined by $h(x) = F(x,y_0)$ is continuous and $\forall x_0 \in X$, the map $k: Y \to Z$ defined by $k(x) = F(x_0,y)$ is also continuous.
+\begin{proof}
+Let $A \subset Z$ be open. Take any $x \in h^{-1}(A)$. Note that $F(x,y_0) \in A$ by construction, so by continuity of $F^{-1}(x,y_0)$ is open. Therefore, there exists $U \times V \subset X \times Y$ such that $U \times V$ is a neighborhood of $(x,y_0)$. Then note that $h(U) \subset A$, which holds for all $x \in h^{-1}(A)$, therefore $h^{-1}(A)$ is open.
+
+The proof for $k$ follows a similar construction.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 11, \#13]
+We show that if $f: A \to Y$ can be extended to $g : \bar{A} \to Y$ where $A \subset X$ and $Y$ is Hausdorff, then $g$ is uniquely determined by $f$.
+\begin{proof}
+Let $g'$ and $g$ be two continuous extensions of $f$ onto $\bar{A}$. Consider the set of points on which $g'$ and $g$ agree, $B = \{ x \in \bar{A} \mid g'(x) = g(x)\}$. First note that $A \subseteq B$ since $g'(x) = f(x) = g(x)$ for $x \in A$. Next, we note that the map $h: \bar{A} \to Y \times Y$ defined by $h(x) = (g(x), g'(x))$ is continuous, and that $B = h^{-1}(C)$ where $C = \{(y,y) \mid y \in Y\}.$ Note that by the exercise on \#13 on Page 101, $C$ is closed because $Y$ is Hausdorff, therefore by continuity of $h$, $B$ is closed. Therefore, it must be the case that $\bar{A} \subseteq B$ (since $A \subset B$ and $B$ is closed). However, by construction, $B \subseteq \bar{A}$. Therefore, $B = \bar{A}$, and the two functions agree on all points in their domains. Therefore, $g'$ and $g$ are the same, so $f$ uniquely determined the extension.
+\end{proof}
+\end{answer}
+\begin{answer}
+In the product topology, the closure of $\mathbb{R}^{\infty}$ is $\mathbb{R}^{\omega}$ because we can construct a sequence $x_k \in \mathbb{R}^{\infty}$ where the first $k$ elements of $x_k$ match $x$ such that $x_k \to x$. The sequence converges to $x$ in the product topology because each coordinate converges to the coordinate of $x$, and therefore for any open set containing $x$ in the product topology, there exists a $k$ large enough such that a finite subset of the coordinates of $x_n$ agree with $x$ for $n > k$ (the number of agreed upon coordinates only goes up), and therefore $x_n$ is contained in that open set.
+
+On the other hand, the closure of $\mathbb{R}^{\infty}$ under the box topology is simply $\mathbb{R}^{\infty}$ because the set is closed. Take any sequence $x \notin \mathbb{R}^{\infty}$. Then there exists an open neighborhood $U$ around $x$ such that $U \cap \mathbb{R}^{\infty} = \emptyset$. To see this, note that if $x = (x_1,x_2,\cdots) \notin \mathbb{R}^{\infty}$, then there exists a subsequence $\{x_{n_k}\}$ such that $x_{n_k} \neq 0$. Therefore each $x_{n_k}$ has a neighborhood $U_{n_k}$ such that $0 \notin U_{n_k}$. For the elements not in the sequence (the zero elements), we take $\mathbb{R}$. Then the product of all of these sets (the open sets containing the non-zero points and $\mathbb{R}$ of the zero points) contains $x$ but does not intersect $\mathbb{R}^{\infty}$ since all the points in the product of the spaces have $x_i \neq 0$ for infinitely many values.
+\end{answer}
+
+\begin{answer}[Page 118, \#8]
+Given the sequences of real numbers $(a_1,a_2,\cdots)$ and $(b_1,b_2,\cdots)$ with $a_i > 0$ for all $i$, we define $h: \mathbb{R}^{\omega} \to \mathbb{R}^{\omega}$ as
+$$
+h((x_1,x_2,\cdots)) = (a_1x_1 + b_1, a_2x_2 + b_2, \cdots)
+$$
+We show that under the product topology, $h$ is a homeomorphism. First note that $h$ is obviously bijective, with
+\begin{align*}
+h^{-1}((y_1,y_2, \cdots)) &= ((\frac{y_1 - b}{a}, \frac{y_2 - b}{a}, \cdots))
+\end{align*}
+so we just need to proof $h$ is continuous on the product topology.
+\begin{proof}
+Interestingly, we simply need to prove that for $U$ open, $h^{-1}(U)$ is also open since $h,h^{-1}$ have the same general form, just with different $a,b \in \mathbb{R}^{\omega}$. Take $x \in h^{-1}(U)$, then $y = f(x) \in U$ has a neighborhood $N \subset Y$ where $N$ is simply the product of $N_i \in \mathbb{R}$ open (in either the box or product topology). Then the pre-image of each $N_i$ given as $\{x \mid a_kx + b_k \in N_k\}$ is also open in $\mathbb{R}$ by continuity of each coordinate transformation. Therefore, taking the product of these pre-images gives us a set $U' \subset X$ open (in both box and product topologies) such that $x \in U'$ and $U' \subset h^{-1}(U)$, which implies $h^{-1}(U)$ is open.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Problem 1]
+\begin{subanswer}
+We proof that $f: I^2 \to I$ is injective. Suppose for contradiction we have $f(x_1,y_1) = f(x_2,y_2)$ for some $(x_1,y_1),(x_2,y_2) \in I^2$ and $(x_1,y_1) \neq (x_2,y_2)$. Then note that we ca write each decimal uniquely:
+\begin{align*}
+x_1 &= 0.k_{11}k_{12}k_{13}\cdots \\
+x_2 &= 0.k_{21}k_{22}k_{23} \cdots \\
+y_1 &= 0.j_{11}j_{12}j_{13} \cdots \\
+y_2 &= 0.j_{21}j_{22}j_{23}
+\end{align*}
+With the above, we have:
+\begin{align*}
+f(x_1,y_1) &= 0.k_{11}j_{11}k_{12}j_{12}k_{13}j_{13}\cdots \\
+f(x_2,y_2) &= 0.k_{21}j_{21}k_{22}j_{22}k_{23}j_{23}
+\end{align*}
+Since we do not allow repeating $9$s, each decimal representation is unique up to trailing $0$s. Therefore, the equality of the results implies that $k_{11} = k_{21}, k_{12} = k_{22}, k_{13} = k_{23}, \cdots, j_{11} = j_{21}, j_{12} = j_{22}, j_{13} = j_{23}, \cdots$. This implies that each decimal place in the expansion of $x_1$ is equal to $x_2$ (similarly for $y_1,y_2$), therefore $(x_1,y_1) = (x_2,y_2)$, a contradiction, so our assumption is false. This implies that $f$ is injective.
+\end{subanswer}
+
+\begin{subanswer}
+Now we show that $f$ is not continuous under the standard subspace topologies of $I^2$ and $I$.
+\begin{proof}
+We do this by example. Take $U = (0.1,0.2) \subset I$. Then $f^{-1}(U) = \{(x,y) \in I^2 \mid 0.1 < x < 0.2 \text{ or } x = 0.1, y > 0 \}$, which is not open under the standard subspace topology on $I^2$. Simply take the point $(0.1, 0.1) \in f^{-1}(U)$ and note that every neighborhood containing this point must necessarily contain points $(x,y)$ where $x < 0.1$, therefore it is not in the set. The set is neither open nor closed. This proves $f$ is not continuous.
+\end{proof}
+\end{subanswer}
+\end{answer}
+\end{document}
