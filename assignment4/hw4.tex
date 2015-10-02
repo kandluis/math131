@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage[margin=1in]{geometry}
+
+
+% Create answer counter to keep track of seperate responses
+\newcounter{AnswerCounter}
+\newcounter{SubAnswerCounter}
+\setcounter{AnswerCounter}{1}
+\setcounter{SubAnswerCounter}{1}
+
+% Create answer environment which uses counter
+\newenvironment{answer}[0]{
+  \setcounter{SubAnswerCounter}{1}
+  \bigskip
+  \textbf{Solution \arabic{AnswerCounter}}
+  \\
+  \begin{small}
+}{
+  \end{small}
+  \stepcounter{AnswerCounter}
+}
+
+\newenvironment{subanswer}[0]{
+  (\alph{SubAnswerCounter})
+}{
+ \bigskip
+  \stepcounter{SubAnswerCounter}
+}
+
+% Allows easy use of vectors
+\newcommand{\vect}[1]{\vec{\boldsymbol{#1}}}
+
+% Setting up the title
+\title{Mathematics 131 \\
+Topology I}
+\author{
+        Luis Antonio Perez \\
+        HUID: 70871564 \\
+        Harvard College \\
+        \href{mailto:luisperez@college.harvard.edu}{luisperez@college}
+}
+\date{\today}
+
+% Custom Header information on each page
+\pagestyle{fancy}
+\lhead{HUID: 70871564}
+\rhead{Perez - \thepage}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+% Title page is page 0
+\setcounter{page}{0}
+
+\begin{document}
+%\maketitle
+\pagebreak
+
+\begin{answer}[Page 152,  \#2]
+We prove by contradiction that if $\{A_n\}$ is a sequence of connected spaces where $A_n \cap A_{n+1} \neq \emptyset$, then $\bigcup_{n} A_n$ is also connected.
+\begin{proof}
+Suppose the above conditions hold but $\bigcup_n A_n$ is disconnected. Then there exists $U,V$ open which disconnected $\bigcup_n A_n$. Then consider the subcollections $\{A_{n_u}\} \subset U$ and $\{A_{n_v}\} \subset V$. By definition of $U,V$, these subcollections are disjoint. However, this contradicts the statement that $A_n \cap A_{n+1} \neq \emptyset$. Therefore, we must have a third subcollection $\{A_{n_{u,v}}\}$ which contains elements with points both in $U$ and $V$. However, for any $A_{n_{u,v}}$, we now have two open sets which disconnect it. This a contradiction on the fact that each $A_{n}$ is connected.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 153, \#9]
+We show that if have connected spaces $X,Y$ with respective proper subsets $A,B$, then $S = X \times Y - A \times B$ is also connected. We do this by constructing the set $X \times Y - A \times B$ from a collection of sets we know to be connected and which intersect. By the previous problem, the union of two connected sets which intersect is connected.
+\begin{proof}
+First, for each $y \notin B$, consider the sets $H_y = \{ (x,y) \mid x \in X\}$ (if in $\mathbb{R}^2$, the set of horizontal lines for fixed $y \notin B$). Note that each $H_y$ is connected because there's a natural homeomorphism from $H_y$ to $X$ and $X$ is connected. Similarly, for each $x \notin A$ consider the sets $V_x = \{ (x,y) \mid y \in B\}$ (again, we can think of this as the set of vertical lines for fixed $x \notin A$). Similarly, note that each $V_x$ is connected because there's a natural homeomorphism from $V_x$ to $Y$ and $Y$ is connected.
+
+Next, we'll note that $\forall x \notin A, \forall y \notin B$, $V_x \cup H_y$ is connected. The reason for this is to note that the point $(x,y) \in V_x$ (because $x \notin A$) and $(x,y) \in H_y$, so $V_x \cap H_y \neq \emptyset$, so by the previous problem, the set $V_x \cup H_y$ is connected.
+
+Finally, consider the set $\bigcup_{x \notin A, y\notin B} V_x \cup H_y$ and note that this union is also connected since each $(V_x \cup H_y) \cap (V_{x'} \cup H_{y'}) \neq \emptyset$ because $V_x \cap H_{y'} \neq
+\emptyset$.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 153, \#10]
+We let $\{X_{\alpha}\}_{\alpha \in J}$ be an indexed family of sets. Then consider the space $X = \prod_{\alpha \in J} X_{\alpha}$ and $a \in X$ where $a = (a_{\alpha})$.
+
+\begin{subanswer}
+We consider a finite subset $K \subset J$. Now we let $X_K$ be the subspace consisting of all points $x$ such that $x_{\alpha} = a_{\alpha}$ for $\alpha \notin K$ and $x_{\alpha}$ has no restrictions for $\alpha \in K$. Note that we can take the natural homeomorphism $f: X_K \to \prod_{\alpha \in K} X_{\alpha}$ which simply takes a point $x \in X_K$ and removes all coordinates $x_{\alpha}$ for $\alpha \notin K$ from the point, and leaves the others unchanged. This is a natural homeomorphism which preserves open sets. Note that the product of finitely many open spaces is connected, therefore this shows that $X_K$ is connected.
+\end{subanswer}
+
+\begin{subanswer}
+We take $Y = \bigcup_{K \subset J} X_K$ where $|K| < \infty$. Note that for any $K, K'$, we have that $X_K \cup X_{K'} \neq \emptyset$. This is because $a \in X_K$ and $a \in X_{K'}$. Therefore, by the fact shown in solution $1$, the union of two connected spaces whose intersection is non-empty is connected, even if the union is uncountable. Therefore, $Y$ is connected.
+\end{subanswer}
+
+\begin{subanswer}
+Now we show that $X = \bar{Y}$.
+\begin{proof}
+Take any point $x \notin Y$. If the point is not in $Y$, then it cannot be in any of the subspace $X_K$ for all finite subsets $K \subset J$. Therefore, it must be the case that the point $x = (x_{\alpha})$ differs from $a = (a_{\alpha})$ at infinitely many points (if not, then it would differ at finitely many, and then it'd be in $X_K$ where $K$ is the set of $\alpha$ for which it differs). Now consider any open neighborhood around $x$. It must be the case that any point $x'$ in this open neighborhood will match $x$ for at least some finite set of coordinates. Therefore, we can construct the point $x_n$ which matches $x$ at these coordinates (so it is included and the neighborhood) and matches $a$ for the remaining coordinates. Therefore, this point $x_n$ differs from $a$ by only a finite subset $K$ of coordinates, and we have that $x_n \in Y$. So for any point $x \notin Y$, we can construct a sequence of points $x_n \in Y$ which converges to $x$. This implies that $x$ is an accumulation point of $Y$, and therefore $Y = \bar{X}$.
+\end{proof}
+By Theorem 23.4 from the book, the closure of a connected space is connected. Therefore $X$ is connected.
+\end{subanswer}
+\end{answer}
+
+\begin{answer}[Page 158, \#3]
+We show that for a continuous map $f: [0,1] \to [0,1]$, there exists a point $x \in [0,1]$ such that $f(x) = x$.
+\begin{proof}
+First, note that if $f(0) = 0$ or $f(1) = 1$, then we're done as we have a fixed point. Therefore, take the case where $f(0) > 0$ and $f(1) < 1$.Construct the continuous map $g: [0,1] \to [-1,1]$ defined by $g(x) = f(x) - x$. Then note that $g(0) = f(0) > 0$ and $g(1) = f(1) - 1 < 0$. Then my the intermediate value theorem, there exists $x \in (0,1)$ such that $g(x) = 0 \implies f(x) = x$. This is the fixed point.
+\end{proof}
+In the case where $X = [0,1)$ or $X = (0,1)$, we cannot consider the values $g(0)$ and $g(1)$ because the function is not defined at those points. Therefore, we can't directly apply the mean value theorem to arrive at our results. We can also create continuous functions which do not have a fixed point. For example, the function $f(x) = 0$ does not have a fixed point if $0 \notin X$. Similarly, the function $f(x) = 1$ does not have a fixed point if $1 \notin X$.
+\end{answer}
+
+\begin{answer}[Page 158, \#9]
+We show that if $A$ is a countable subset of $\mathbb{R}^2$, then the set $\mathbb{R}^2 - A$ is path connected.
+\begin{proof}
+Take $x,y \in \mathbb{R}^2 - A$. Then first, following the hint, note that there are an uncountable number of lines passing through $x$ and an uncountable number of lines passing through $y$. Furthermore, note that there are only countably many lines passing through $x$ and a point $a \in A$ because $A$ is countable and each pair of points has a single line passing through them. By the same argument, there are countably many lines passing through $y$ and through a point $a \in A$. Therefore, there must be an uncountable number of lines which pass through the point $x$ which do not intersect $A$ (and similarly for $y$). Of these uncountable lines, note that there are uncountably many pairs of lines which are not parallel (and therefore, intersect). Then we can just take the path from $x$ to the intersection point, followed by the path from the intersection point to $y$. Therefore any two points $x,y$ are path connected.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 158, \#10]
+We want to show that if $U$ is an open, connected subset of $\mathbb{R}^2$, then $U$ is path connected.
+\begin{proof}
+Following the hint, we show that for any point $x_0 \in U$, the set $C = \{x \in U \mid x \text{ is path connected to } x_0 \}$ is both open and closed in $U$. We do this because if we have that both $U$ and $U - C$ are open (which is implied by $U$ being both open and closed), with $U$ and $U - C$ both non-empty, then we've created a separation of $U$, contradicting the fact that $U$ is connected.
+
+Consider a point $x \in C$. The note that for any open neighborhood of $x$, call it $N_x$, all points $x' \in N_x$ are path connected to $x_0$. This is because there exists a path from $x_0$ to $x$, and there exists a straight line path from $x$ to $x'$ because they're in the same open neighborhood (basis element of the topology). Therefore, $N_x \subset C$ and $C$ is open.
+
+Now consider the point $x \notin C$. This means that there does not exist a path from $x_0$ to $x$. Therefore, for any open neighborhood around $x$, any point in $x' \in N_x$ cannot be path connected to $x_0$. If it were, then we'd have a path from $x$ to $x_0$ given by the path from $x$ to $x'$ followed by $x'$ to $x_0$. Therefore, $U - C$ is also open.
+
+From the above, note that $U - C \cap C = \emptyset$. Furthermore, note that $x \in C$ since $x$ is path-connected to itself, therefore $C$ is non-empty. Suppose that $U - C$ is also non-empty. Then we'd have a separation of $U$, contradicting the fact that $U$ is connected. Therefore, it must be the case that $U - C$ is empty. This implies that $C = U$, and by construction, $C$ is path-connected, so $U$ is path-connected.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 162, \#5]
+We take $X = \mathbb{Q} \cap [0,1] \times 0 \subset \mathbb{R}^2$ and $T$ be the union of all line segments joining the point $p = 0 \times 1$ to the points in $X$.
+
+\begin{subanswer}
+It is clear that $T$ is path connected. First, note that the line-segments are path-connected. Secondly, there always exists a path from $p$ to any point $q \in \mathbb{Q} \cap [0,1] \times 0$ and vice versa, by construction (just along the line segment connecting the two points, so the function is $f(t) = (q(1-t), t)$ and its time-reverse are the functions). Because of this fact, there always exists a path between any two $q_1,q_2 \in [0,1] \cap \mathbb{Q} \times 0$ because we can simply take the path from $q_1 \to p$ followed by $p \to q_2$.
+
+However, note that local connectivity only holds at point $p$. To see this, consider any point that's not $p$. Then any small neighborhood around that point $B(x,\epsilon)$) will consists of small line-segments of length at most $2\epsilon$, with no way of getting from one line segment to another.  On the other hand, for $p$, $p$ itself is the intersection of all of these line segments, so $p$ will always be locally path connected and therefore connected.
+\end{subanswer}
+
+\begin{subanswer}
+We can follow an idea similar to the above to constructed a path connected subset of $\mathbb{R}^2$ which is no-where locally connected. Take the set $[0,1] \cap \mathbb{Q} \times 0$ and the set $[0,1] \cap \mathbb{Q} \times 1$. Then consider the union of all line-segments from $0 \times 1$ to $[0,1] \cap \mathbb{Q} \times 0$ (just as above) and the line-segments from $0 \times 0$ to $[0,1] \cap \mathbb{Q} \times 1$ (so mirror image of above).
+
+Now, note that the set is still path connected. Between any points with the same $y$-coordinate, the path is simply the union of the two line segments connecting those points to their shared vertex-point (either $0 \times 1$ or $0 \times 0$). Between two points with different $y$-coordinates, a path exists between each point and their respective vertex-point, followed by the path connecting the two vertex points.
+
+However, note that the set is totally locally disconnected. By a similar argument as above, we have that any open set that is not $0 \times 1$ or $0 \times 0$ is still not path-connected. However, additionally, now we note that a small enough open set containing either $0 \times 1$ or $0 \times 0$ is disconnected because the path between $0 \times 0$ and $0 \times 1$ is lost, and therefore there's no way to get from the vertex point to any of the points in the neighborhood with the same $y$ coordinate.
+\end{subanswer}
+\end{answer}
+
+\begin{answer}[Page 171, \#2]
+
+\begin{subanswer}
+We show that every subspace under the finite complement topology on $\mathbb{R}$ is compact. Take any subspace of $X \subset \mathbb{R}$ and note each open set only doesn't cover finitely many points in $X$. Therefore, if we have a collection $\mathcal{U}$ that covers all of $X$, a single set from $U$ that covers part of $X$ must already cover everything but finitely many points. Then we take any set that covers each of those points from $\mathcal{U}$. This gives us a finite sub collection that covers $X$. Therefore, $X$ is compact.
+\end{subanswer}
+
+\begin{subanswer}
+The answer is no, $[0,1]$ is not a compact subspace. Take the open covering $\{U_n\}$ given by $U_n = \mathbb{R} - \{\frac{1}{n}, \frac{1}{n+1}, \frac{1}{n+2}, \cdots \}$. By construction, each $U_n$ is open. Again, by construction, the $U_n$ cover $[0,1]$ for any point not of the form $\frac{1}{k}$, $U_1$ covers it. If the point is of the form $\frac{1}{k}$, then there's an $N$ large enough such that $\frac{1}{k} > \frac{1}{N}$, so $A_N$ will cover $\frac{1}{k}$.
+
+However, there's no finite sub-cover from this cover. Suppose there did exist a finite sub-cover. Then there would be some maximum $N$ in our sub-cover. However, this implies that any point $\frac{1}{k} < \frac{1}{N}$ would not be covered, by construction, contradicting the fact that this is a covering of $X$.
+\end{subanswer}
+\end{answer}
+
+\begin{answer}[Problem 1]
+We show that for any continuous function $f: S^1 \to \mathbb{R}$, $\exists (x,y) \in S^1$ such that $f(x,y) = f(-x,-y)$.
+\begin{proof}
+Construct the continuous map $g: S^1 \to \mathbb{R}$ defined by $g(x,y) = f(x,y) - f(-x,-y)$. Then note that $g(-x,-y) = f(-x,-y)-f(x,y) = -g(x,y)$, so $g$ is an odd function. Then by the intermediate value theorem, this means that $\exists (x,y) \in S^1$ such that $g(x,y) = 0 \implies$ that there exist $(x,y) \in S^1$ such that $f(x,y) = f(-x,-y)$.
+\end{proof}
+\end{answer}
+\end{document}

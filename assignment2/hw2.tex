@@ -5,6 +5,8 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{pdfpages}
 \usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{soul}
 
 
 % Create answer counter to keep track of seperate responses
@@ -152,13 +154,51 @@ Let $C \subset Y$ be closed. We prove that $f^{-1}(C)$ is closed by showing that
 \end{proof}
 \end{subanswer}
 \end{answer}
-\begin{answer}[Page 111. \#12]
+
+\begin{answer}[Page 111. \#12 (actually, this is problem \#9)]
 We show that if $F: X \times Y \to Z$ is continuous, then $F$ is continuous in each variable separately. This means that $\forall y_0 \in Y$, the map $h: X \to Z$ defined by $h(x) = F(x,y_0)$ is continuous and $\forall x_0 \in X$, the map $k: Y \to Z$ defined by $k(x) = F(x_0,y)$ is also continuous.
 \begin{proof}
 Let $A \subset Z$ be open. Take any $x \in h^{-1}(A)$. Note that $F(x,y_0) \in A$ by construction, so by continuity of $F^{-1}(x,y_0)$ is open. Therefore, there exists $U \times V \subset X \times Y$ such that $U \times V$ is a neighborhood of $(x,y_0)$. Then note that $h(U) \subset A$, which holds for all $x \in h^{-1}(A)$, therefore $h^{-1}(A)$ is open.
 
 The proof for $k$ follows a similar construction.
 \end{proof}
+\end{answer}
+
+\begin{answer}[\color{red} Page 111. \#12]
+Apologies for doing the wrong question.
+
+\begin{subanswer}
+First note that any function of the form $f:\mathbb{R} \to \mathbb{R}$ with $f(x) = \frac{cx}{c^2 + x^2}$ for $c \neq 0$ is continuous since it is at no point undefined and the limits agree at all points.
+
+Then in order to show continuity in each variable, we first focus on showing continuity in $x$.
+
+Using the fact from above, we know it to be continuous on $x$ for all values of $y \neq 0$. Then for $y = 0$, consider the function $f: \mathbb{R} \to \mathbb{R}$ given by:
+\begin{align*}
+f(x) &= F(x \times 0) \\
+&=
+\begin{cases}
+\frac{1}{x} & x \neq 0\\
+0 & x = 0
+\end{cases}
+\end{align*}
+Then note that for any sequence ${x_n} \to 0$, $\frac{1}{x_n} \to 0$ also. Therefore $f$ is a continuous function.
+
+The above implies that $F(x \times y)$ is continuous in $x$ and, by symmetry, is also continuous in $y$ (exchange the roles of $y$ and $x$ in the above explanation).
+\end{subanswer}
+\begin{subanswer}
+The function $g: \mathbb{R} \to \mathbb{R}$ is given by:
+\begin{align*}
+g(x) &= F(x \times x) \\
+&= \begin{cases}
+\frac{1}{2} & x \neq 0 \\
+0 & x = 0
+\end{cases}
+\end{align*}
+\end{subanswer}
+
+\begin{subanswer}
+$F(x \times y)$ is not continuous because we can take the closed set $C =\{\frac{1}{2}\}$ and note that $F^{-1}(C) = \{(x,x) \mid x \neq 0\}$ which is not closed in $\mathbb{R}^2$ because it does not contain the limit points $(0,0)$.
+\end{subanswer}
 \end{answer}
 
 \begin{answer}[Page 11, \#13]
