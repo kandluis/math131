@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage[margin=1in]{geometry}
+
+
+% Create answer counter to keep track of seperate responses
+\newcounter{AnswerCounter}
+\newcounter{SubAnswerCounter}
+\setcounter{AnswerCounter}{1}
+\setcounter{SubAnswerCounter}{1}
+
+% Create answer environment which uses counter
+\newenvironment{answer}[0]{
+  \setcounter{SubAnswerCounter}{1}
+  \bigskip
+  \textbf{Solution \arabic{AnswerCounter}}
+  \\
+  \begin{small}
+}{
+  \end{small}
+  \stepcounter{AnswerCounter}
+}
+
+\newenvironment{subanswer}[0]{
+  (\alph{SubAnswerCounter})
+}{
+ \bigskip
+  \stepcounter{SubAnswerCounter}
+}
+
+% Allows easy use of vectors
+\newcommand{\vect}[1]{\vec{\boldsymbol{#1}}}
+
+% Setting up the title
+\title{Mathematics 131 \\
+Topology I}
+\author{
+        Luis Antonio Perez \\
+        HUID: 70871564 \\
+        Harvard College \\
+        \href{mailto:luisperez@college.harvard.edu}{luisperez@college}
+}
+\date{\today}
+
+% Custom Header information on each page
+\pagestyle{fancy}
+\lhead{HUID: 70871564}
+\rhead{Perez - \thepage}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+% Title page is page 0
+\setcounter{page}{0}
+
+\begin{document}
+%\maketitle
+\pagebreak
+\begin{answer}[Page 199, \#2]
+We show that if $X$ is normal, every pair of disjoint closed sets have neighborhoods whose closure is disjoint.
+\begin{proof}
+Let $A$ and $B$ be disjoint, closed sets in $X$. Then by normality of $X$, there exists open sets $U,V$ such that $A \subset U$ and $B \subset V$ where $U \cap V = \emptyset$. First, consider the pair of closed, disjoint sets $A$ and $X - U$. By normality, note that $\exists U_A, V_A$ disjoint open sets such that $A \subset U_A \subset U$ and $X - U \subset V_A$. Also note that $\bar{U}_A \subset U$, since for $y \in X - U$, the set $V_A$ is a neighborhood of $y$ disjoint from $U_A$.
+
+Next, consider the pair of closed, disjoint sets $B$ and $X - V$. By normality, $\exists U_B, V_B$ disjoint open sets such that $B \subset U_B \subset V$ and $X - V \subset V_B$. Then note that $\bar{U}_B \subset V$ since $y \in X - V$, the set $V_B$ is a neighborhood of $y$ disjoint from $U_B$
+
+Putting the two results above together, we see that $\bar{U}_A \cap \bar{U}_B = \emptyset$, as desired.
+\end{proof}
+\end{answer}
+
+\begin{answer}
+We let $f,g: X \to Y$ be continuous, with $Y$ Hausdorff. We prove that the set $A = \{x \mid f(x) = g(x) \} \subset X$ is closed in $X$.
+\begin{proof}
+Note that the function $h: X \to Y \times Y$ given by $h(x) = (f(x), g(x))$ is continuous by the continuity of $f,g$. Furthermore, $A = h^{-1}(D)$ where $D = \{ (y,y) \mid y \in Y \}$ (the diagonal in $Y$). Note that by a previous assignment, we know that $D$ is closed because $Y$ is Hausdorff. Therefore, by continuity, $A$ is also closed.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 218, \#1]
+An example of  Hausdorff space that is not metrizable is $\mathbb{R}_K$. Note that $\mathbb{R}_K$ is Hausdorff because $\mathbb{R}$ is Hausdorff. Furthermore, it has a countable basis consisting of the intervals $(p,q)$ and $(p,q) - K$ with rational end-points. However, note that we've shown before that $\mathbb{R}_K$ is not regular. The idea being that the point $0$ cannot be separated from the closed set $K$ by two disjoint open sets (see Section 31 of the textbook for the proof).
+\end{answer}
+
+\begin{answer}[Page 227, \#1]
+We show that every $m$-manifold, $X$, is regular, and thus metrizable. To show regularity, we show that given a point $x \in X$ and a neighborhood $U$ of $x$, there is a neighborhood $V$ of $x$ such that $\bar{V} \subset U$.
+\begin{proof}
+Note that for every point $x \in X$ and neighborhood $U$ of $x$, $\exists$ a neighborhood $V$ of $x$ which is homeomorphic to $\mathbb{R}^m$ through some homeomorphism $h$. Then note that $W = U \cap V$ is open in $X$. This implies that $h(W)$ is open in $\mathbb{R}^m$, and by regularity of $\mathbb{R}^m$, there exists an open neighborhood $Z$ of $h(x)$ such that $\bar{Z} \subset h(W)$. Then letting $V = h^{-1}(Z)$, note that $\bar{V} \subset U$ where $V$ is a neighborhood of $x$. Furthermore, note that $\mathbb{R}^m$ is locally compact, so the above implies $X$ is locally compact. Additionally, because $X$ is Hausdorff, it must be regular.
+\end{proof}
+Note that we required for $X$ to be Hausdorff in order for local compactness to hold (and therefore regularity). We need points to be separable.
+\end{answer}
+
+\begin{answer}[Page 227, \#2]
+Let $X$ be a compact Hausdorff space. We show that if for each $x \in X$, there exists a neighborhood $U$ such that $U$ can be imbedded in $\mathbb{R}^k$ for some integer $k$, then $X$ can be imbedded in $\mathbb{R}^N$ for some integer $N$. We follow a proof similar to Theorem 36.2 where it is shown that if $X$ is a compact $m$-manifold, then $X$ can be imbedded in $\mathbb{R}^N$ for some integer $N$.
+\begin{proof}
+Cover $X$ by finitely many open sets $\{U_1, \cdots, U_n\}$, each of which many be imbedded in $\mathbb{R}^{k_n}$. Choose imbeddings $g_i: U_i \to \mathbb{R}^{k_i}$ for each $i$. The space $X$ is compact, Hausdorff, therefore it is normal. Then by Theorem 36.1, let $\phi_1,\cdots, \phi_n$ be a partition of unity dominated by by $\{U_i\}$. Let $A_i = \text{support } \phi_i$. For each $i$, define the function $h_i: X \to \mathbb{R}^{k_i}$ by the rule:
+\begin{align*}
+h_i(x) &= \begin{cases}
+\phi_i(x) \cdot g_i(x) & x \in U_i \\
+(0,\cdots,0) & x \in X - A_i
+\end{cases}
+\end{align*}
+Then construct
+$$
+F : X \to (\mathbb{R} \times \cdots \times \mathbb{R} \times \mathbb{R}^{k_1} \times \cdots \times \mathbb{R}^{k_n})
+$$
+by the rule:
+$$
+F(x) &= (\phi_1(x), \cdots, \phi_n(x), h_1(x), \cdots, h_n(x))
+$$
+Clearly, $F$ is continuous. Now suppose that $F(x) = F(y)$. Then $\phi_i(x) = \phi(y)$ and $h_i(x) = h_i(y)$ for all $i$. Now $\phi_i(x) > 0$ for some $i$, and therefore $\phi_i(y) > 0$, so that $x,y \in U_i$. Then:
+$$
+\phi_i(x) \cdot g_i(x) = h_i(x) = h_i(y) = \phi_i(y) \cdot g_i(y)
+$$
+Since $\phi_i(x), \phi_i(y) > 0$, we conclude that $g_i(x) = g_i(y)$. However, $g_i: U \to \mathbb{R}^{k_i}$ is an imbedding, therefore  $x = y$, and consequently $F$ is injective. Therefore, because $X$ is compact, $F$ is an imbedding.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 227, \#3]
+Let $X$ be a Hausdorff space such that each point of $X$ has a neighborhood that is homeomorphic with an open subset of $\mathbb{R}^m$. We show that if $X$ is compact, then $X$ is an $m$-manifold.
+\begin{proof}
+In order $X$ to be an $m$-manifold, it must be a Hausdorff space with a countable basis such that each point of $X$ has a neighborhood that is homeomorphic with an open subset of $\mathbb{R}^m$.
+
+Note that all conditions are immediately satisfied except for the fact that $X$ has a countable basis. However, note that we have $X$ as a compact Hausdorff space where for each element in $X$, there is a neighborhood $U$ and a positive integer $k \leq m$ such that $U$ can be imbedded in $\mathbb{R}^k$. Therefore, by Exercise 2 above, $X$ can be imbedded in $\mathbb{R}^N$ for some integer $N$. Note that $\mathbb{R}^N$ has a countable basis (take rational intervals), therefore $X$ is must have a countable basis (otherwise an imbedding would be impossible), and subsequently, it must be the case that $X$ is an $m$-manifold, as desired.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 227, \#5]
+We consider the following space $X$. $X$ is the union of the set $\mathbb{R} - \{0\}$ and the two-point set $\{p,q\}$. we topologize $X$ by taking as basis the collection of all open intervals in $\mathbb{R}$ that do not contains $0$ along with all sets of the form $(-a,a) - \{0\} \cup \{p\}$ and $(-a,a) - \{0\} \cup \{q\}$. The space $X$ is called the line with two origins.
+
+\begin{subanswer}
+We check that this is a basis for a topology.
+\begin{enumerate}
+\item Note that the base elements over $X$. Any point $x \in \mathbb{R} - \{0\}$ is contained in an open interval, and any point $x \in \{p,q\}$ is contained in the modified interval $(-a,a) - \{0\} \cup \{p\}$ or $(-a,a) - \{0\} \cup \{q\}$.
+\item Consider $B_1 \cap B_2$. If $B_1$ and $B_2$ are both intervals ( in the normal sense), then we're done. If one is a neighborhood of $p$ (or $q$), of the form $(-a,a) - \{0\} \cup \{p\}$ and the other $(-b,b)$, then the intersection is either empty, or a single interval (which is a basis element). If both $B_1$ and $B_2$ are neighborhood of $p$ or $q$, then the intersection is the union of two intervals when the neighborhoods are of $p,q$, and a neighborhood of the point when the point is the same.
+\item Note that by symmetry, we just need to show that $X - \{p\}$ is homeomorphic to $\mathbb{R}$. The homeomorphism is straight forward, as we can simply map the point $q \to 0$.
+\item $X$ satisfies the $T_1$ axiom, but is not Hausdorff. Note that for any two points not $\{p,q\}$, we can separate the points with two disjoint intervals (in the same way we separate points in the real line). However, for the points $p,q$, every neighborhood containing $p$ does not contain $q$ (and vice-verse), so $T_1$ is satisfied, but every neighborhood containing $p$ must intersect a neighborhood containing $q$ because the intervals $(-a,a) - \{0\} \cup \{p\}$ and $(-b,b) - \{0\} \cup \{q\}$ with form the intersection $(\max\{-a,-b\}, \mid\{a,b\}) - \{0\}$ which is non-empty. Therefore the space is not Hausdorff.
+\item We first show that $X$ has a countable basis. This is because $\mathbb{R}$ has a countable basis, and the elements $(-r,r) - \{q\}$ and $(-r,r) - \{p\}$ for $r \in \mathbb{Q}$ are a basis for $q,p$ respective, each countable. Therefore $X$ has a countable basis.
+Next, note that for each point in $X$, it either belongs to $X - \{p\}$ or $X - \{q\}$ (both open), and by part (b), this sets are homeomorphic to $R$, so this condition is satisfied. Therefore, $X$ satisfies all the conditions of a $1$-manifold except for the Hausdorff condition.
+\end{enumerate}
+\end{subanswer}
+\end{answer}
+\end{document}
