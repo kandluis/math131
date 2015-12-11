@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage[margin=1in]{geometry}
+
+
+% Create answer counter to keep track of seperate responses
+\newcounter{AnswerCounter}
+\newcounter{SubAnswerCounter}
+\setcounter{AnswerCounter}{1}
+\setcounter{SubAnswerCounter}{1}
+
+% Create answer environment which uses counter
+\newenvironment{answer}[0]{
+  \setcounter{SubAnswerCounter}{1}
+  \bigskip
+  \textbf{Solution \arabic{AnswerCounter}}
+  \\
+  \begin{small}
+}{
+  \end{small}
+  \stepcounter{AnswerCounter}
+}
+
+\newenvironment{subanswer}[0]{
+  (\alph{SubAnswerCounter})
+}{
+ \bigskip
+  \stepcounter{SubAnswerCounter}
+}
+
+% Allows easy use of vectors
+\newcommand{\vect}[1]{\vec{\boldsymbol{#1}}}
+
+% Setting up the title
+\title{Mathematics 131 \\
+Topology I}
+\author{
+        Luis Antonio Perez \\
+        HUID: 70871564 \\
+        Harvard College \\
+        \href{mailto:luisperez@college.harvard.edu}{luisperez@college}
+}
+\date{\today}
+
+% Custom Header information on each page
+\pagestyle{fancy}
+\lhead{HUID: 70871564}
+\rhead{Perez - \thepage}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+% Title page is page 0
+\setcounter{page}{0}
+
+\begin{document}
+\begin{answer}[Page 412, \#3]
+We show that if $G$ is a free abelian with basis $\{x,y\}$, then $\{2x + 3y, x + y \}$ is also a basis for $G$.
+\begin{proof}
+We show that $\{2x + 3y, x+y\}$ is also a basis by finding integers $A_x,B_x, A_y, B_y$ such that the following are fulfilled:
+\begin{align*}
+A_x(2x + 3y) + B_x(x + y) &= x \\
+A_y(2x + 3y) + B_y(x + y) &= y
+\end{align*}
+The above can be solved simply, with values $A_x = -1, B_x = -3$ and $A_y = 1, B_y = -2$. Through this, we see how the elements $\{2x + 3y, x+y\}$ generate the groups $G_x$ and $G_y$, which are infinite cyclic. We know that $G$ is a direct sum of these groups, therefore the elements $\{2x + 3y, x + y\}$ are basis elements.
+ \end{proof}
+\end{answer}
+
+\begin{answer}[Page 412, \#4]
+We define the \textbf{order} of an element $a$ of an abelian group $G$ is the smallest positive integer such that $ma = 0$, if such an integer exists.
+\begin{enumerate}
+\item We show that the elements of finite order form a subgroup of $G$. Call this subgroup $U$.
+\begin{itemize}
+\item The identity element $0$ has order $1$, which is finite, and therefore $0 \in U$.
+\item Let $e_1,e_2 \in U$. Then there exists positive integers $n,m$ such that $ne_1 = 0$ and $me_1 = 0$. Therefore, we have:
+\begin{align*}
+nm(e_1 + e_2) &= nme_1 + nme_2 \tag{commutativity} \\
+&= m(ne_1) + n(me_1) \tag{commutativity} \\
+&= m(0) + n(0) \tag{assumption} \\
+&= 0
+\end{align*}
+Therefore, the order of $e_1 + e_2 \leq nm \implies e_1 + e_2 \in U$.
+\item Let $e \in U$. Then there exist a positive integer $n$ such that $ne = 0$. Then note that:
+\begin{align*}
+0 &= n0 \\
+&= n(e + e^{-1}) \tag{definition of inverse} \\
+&= ne + ne^{-1}  \tag{commutativity}\\
+&= 0 + ne^{-1} \\
+&= ne^{-1}
+\end{align*}
+\end{itemize}
+Therefore, it $U$ is a subgroup.
+\item We show that if $G$ is free abelian, then it has no elements of finite order other than the identity.
+\begin{proof}
+Suppose $G$ is free abelian with some basis $\{a_{\alpha}\}$. Note that the groups $G_{\alpha}$ are infinite cyclic, and therefore all elements in $G_{\alpha}$ must have infinite order. To show this, suppose we have an element $x \in G_{\alpha}$ with finite order, so that there exists an $n > 0$ where $nx = 0$. Then note that $x = ka_{\alpha}$ for some $k \in \mathbb{Z}$ where $k \neq 0$. However, if $nka_{\alpha} = 0$, then $nk(a_{\alpha})$ is the identity element of the group, and therefore the group has finite order, and cannot be infinite cyclic, a contradiction. \\
+Note that $G$ is then the direct sum of the $G_{\alpha}$, each of which must have infinite order by the above, and therefore $G$ must have infinite order. Therefore, each element of $G$, except the identity must have infinite order.
+\end{proof}
+\item We show that the additive group of rationals has no elements of finite order (except the identity), but is not free abelian.
+\begin{proof}
+It is clear that the additive group of rationals has no finite order, since for any rational $r \neq 0$, $nr \neq 0$ for all $n \neq 0$.\\
+
+Now suppose that the additive group of rationals is free abelian, therefore there exists a collection of elements $\{ a_{\alpha}\}$ which forms a basis. This basis is non-empty, since the rationals are non-trivial. However, it is not possible to express $\frac{1}{2}a_{\alpha}$ as a linear combination of the basis elements consisting of only integers. To see this, suppose we could. Then $\frac{1}{2}a_{\alpha} = n_{\alpha}a_{\alpha} + \sum_{\beta \neq \alpha} n_{\beta}a_{\beta}$. Then note that $a_{\alpha} = \frac{1}{2}a + \frac{1}{2}a = 2n_{\alpha}a_{\alpha} + 2\sum_{\beta \neq \alpha} n_{\beta}a_{\beta}$. Because expressions must be unique, it must be the case that $2n_{\alpha} = 1$, which implies $n_{\alpha} = \frac{1}{2}$, a contradiction.
+\end{proof}
+\end{enumerate}
+\end{answer}
+
+\begin{answer}[Page 412, \#5]
+Consider $G = \mathbb{Z}$, under the addition operation. Note that $G$ is a free abelian group with basis $\{1\}$, since every element of $\mathbb{Z}$ is a sum of some number of $1$s, and therefore has rank $1$. Consider the sub-group $H = 2\mathbb{Z}$, under the addition operation. Note that $H$ is a free abelian group with basis $\{2\}$, since every element of $2\mathbb{Z}$ is a sum of some number of $2$s, and therefore has rank $1$. \\
+However, note that $G \neq H$.
+\end{answer}
+
+\begin{answer}[Page 412, \#6]
+We proof that if $A$ is a free abelian group of rank $n$, then any subgroup $B$ if $A$ must be a free abelian group of rank at most $n$.
+\begin{proof}
+WLOG, we can assume that $A = \mathbb{Z}^n$, the $n$-fold cartesian product of $\mathbb{Z}$ with itself. Let $\pi_i : \mathbb{Z}^n \to \mathbb{Z}$ be the projection of the $i$-th coordinate. Given that $m \leq n$, let $B_m$ consists of all the elements $x \in B$ such that $\pi_i(x) = 0$ for $i > m$. Theb $B_m$ is a subgroup of $B$.\\
+Consider the subgroup $\pi_m(B_m)$ of $\mathbb{Z}$. If this subgroup is non-trivial, choose $x_m \in B_m$ so that $\pi_m(x_m)$ is the generator of this group. Otherwise set $x_m = 0$.\\
+\begin{itemize}
+\item First we show that $\{x_1, \cdots, x_m\}$ generates $B_m$ for each $m$.
+\begin{proof}
+We proof by induction on $m$. For the base case, note that $\{x_1\}$ generates $B_1$.  Consider $x \in B_1$. Because $\pi_1(x_1)$ is the generator of the sub-group $\pi_1(B_1)$, there exist $n_1$ such that $n_1\pi_1(x_1) = \pi_1(x)$ and all elements $\pi_i(x) = 0$ for $i > 1$. Therefore, for any $x \in B_1$, we have $x = n_1 x_1$. \\
+Now for the inductive hypothesis, assume that $\{x_1, \cdots, x_m\}$ generate $B_m$ for each $m < n$. \\
+We show that $\{x_1, \cdots, x_{m+1}\}$ generates $B_{m+1}$. Note that by the inductive hypothesis, all $x \in B_{m+1}$ for which are $\pi_{m+1}(x) = 0$ are the direct sum of elements in $\{x_1, \cdots, x_{m}\}$. Now consider $x_{m+1}$ with $\pi_{m+1}(x_{m+1}) = 0$ (if not already), and refer to it as $x_{m+1}'$. Note that by construction, it must be the case that $x_{m+1}' \in B_{m}$ (because $x_{m+1} \in B \implies x_{m+1}' \in B$ and we have $\pi_i(x_{m+1}') = 0$ for $i > m$). Therefore, by the inductive hypothesis, there exists a unique direct sum such that $x_{m+1}' = \sum_{i=1}^m n_i x_{i}$. Then consider the element $\bar{x}_{m+1} = x_{m+1} - x_{m+1}' = x_{m+1} - \sum_{i=1}^m n_i x_{i}$, and note that the only-nonzero element of $\bar{x}_{m+1}$ is the $m+1$-th element which is in fact equal to $\pi_{m+1}(x_{m+1})$, the generator of $\pi_{m+1}(B_{m+1})$. Then for any $x \in B_{m+1}$, by the above and by a second application of the inductive hypothesis, there exists $\{c_i\}$ such that:
+\begin{align*}
+x &= \sum_{i=1}^m c_i x_i + c_{m+1} \bar{x}_{m+1} \\
+&= \sum_{i=1}^m c_i x_i + c_{m+1} x_{m+1} - c_{m+1} \sum_{i=1}^m n_i x_i \\
+=& \sum_{i=1}^m c_{m+1}(c_i - n_i) x_i + c_{m+1}x_{m+1}
+\end{align*}
+Therefore, $\{x_1, \cdots, x_{m+1}$\} generates $B_m$.
+\end{proof}
+\item Following a similar logic to the above, if we remove all non-zero elements from $\{x_1, \cdots, x_{m}\}$, then each sum above will be unique. Therefore, by removing non-zero elements, we have that this set forms a basis of $B_m$.
+\item We show that $B_n = n$ is free abelian with rank at most $n$. By the above arguments, $B_n$ has a basis consisting of $\{x_1, \cdots, x_n\}$ with all zero elements removed. Therefore, it must be the case that $B_n$ is a abelian with a rank at most $n$.
+\end{itemize}
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 421, \#2]
+We let $G = G_1 * G_2$, where $G_1,G_2$ are non-trivial groups.
+\begin{enumerate}
+\item We first how that $G$ is not abelian.
+\begin{proof}
+Take $g_1 \in G_1$ and $g_2 \in G_2$, and note that $(g_1, g_2, g_1^{-1}, g_2^{-1})$ is a nonempty reduced word in $G$, so it is not the identity. However, if $G$ were abelian, we would have:
+$$
+(g_1, g_2, g_1^{-1}, g_2^{-1}) = g_1g_2g_1^{-1}g_2^{-1} = g_1g_1^{-1} g_2g_2^{-1} = 11 = ()
+$$
+a contradiction.
+\end{proof}
+\item If $x \in G$, let the length of $x$ be the length of the unique reduced word in the elements $G_1,G_2$ that represents $x$. We show that if $x$ has even length of at least 2, then $x$ does not have finite order. We also show that if $x$ has odd length, then $x$ is conjugate to an element of shorter length ($|x| > 1$).
+\begin{proof}
+First note that the reduced word representation of $x$ must have alternating elements from $G_1$ and $G_2$. Because of this alternating pattern, it must be the case that $x = (g_1, \cdots g_n)$ where $g_1,g_n$ from different groups. Therefore, taking $x^m$, we immediately see that we will have a word of length $2m|x|$, and that the first element will be $g_1$ and the last $g_n$ with an alternating patter in between. Therefore, this is the reduced form of the word $x^m$ which is no the identity, for all $m$, and therefore $x$ must have infinite order. \\
+
+Now to tackle the odd length case. First note that if $|x| = 1$, the only element shorter is the identity, but conjugacy between $x$ and the identity leads to a contradiction. Then it must have odd length of at least $3$. If $x$ is reduced, it must have an alternating of elements from $G_1$ and $G_2$. Let $g_1$ be the first element and $g_n$ the last, and note that $g_1,g_n$ must belong to the same group. Then note that $g_1^{-1}xg_1$ is a reduced word of length $n-1$ because $g_1^{-1}g_1 = 1$ can be removed from the beginning and $g_ng_1 \in G_i$ can be combined into a single element at the end. Therefore, the length is at most $n-1$, and $x$ is conjugate to this new word.
+\end{proof}
+\item We show that the only elements of $G$ with finite order are the elements of $G_1$ and $G_2$ with finite order and their conjugates.
+\begin{proof}
+Take an element $x \in G$ which is a conjugate of an element of finite order $y$ from $G_1$ or $G_2$. Note that this automatically includes all elements $x$ of finite order since conjugacy is reflexive. Then suppose that $x = g^{-1}yg^{1}$ for a $g \in G$. Note that there exist $n$ such that $y^n = 1$. Then take $x^n = g^{-1}y^ng^{1} = g^{-1}(1)g^{1}= gg^{1} = 1$, and therefore $x$ has finite order of at moust $n$.\\
+Now take an element $x \in G$  which is not a conjugate to an element of finite order from $G_1$ or $G_2$. The length of $x$ must be at least $2$, since any shorter element is conjugate to itself. We now prove by induction that $x$ is conjugate to an element $y$ of even length of at least $2$. This is trivially satisfied for $|x| = 2$, and for $|x| = 3$, we note that by the part above, this must be conjugate to an element of shorter length which is not the identity or unity elements. Now, suppose that we know that every $x$ of odd length less than $2n + 1$ is conjugate to $y$ with the described properties. Then consider an element $x$ of length $2n + 1$. We've shown that it must conjugate to an element of shorter length. Suppose this element $y$ is of even length. Then $|y| \geq 2$ because if $|y| = 0$, $x$ will be conjugate to $1$, a contradiction. On the other hand, suppose $y$ is of odd length. Then by the inductive hypothesis, this element is conjugate to another element such that $x = g^{-1}g^{'-1}y'g'g$ for $y'$ with even length greater than $0$. Therefore, $x = g^{-1}g^{'-1}y'g'g$, which implies $x$ is conjugate to $y'$, satisfying the condition we wished to prove.\\
+
+Lastly, suppose $|x|$ is even of length at least $2$. Then it is conjugate to itself, trivially, so the property we seek is satisfied. \\
+
+The aboves shows that any $x \in G$ which is not conjugate to an element of finite order from $G_1, G_2$ must be conjugate to an element $y$ with even length. However, suppose $x$ has finite order such that $x^n = 1$ for some $n$. Then $y^n = gx^ng^{-1} = g1g^{-1} = 1$, therefore, $y$ also has finite order, a contradiction.
+\end{proof}
+\end{enumerate}
+\end{answer}
+
+\begin{answer}[Page 421, \#4]
+We prove Theorem 68.4 in Munkres, the uniqueness of free products. We first prove Lemma 68.3. \\
+Let $\{G_{\alpha}\}$ be a family of groups; let $G$ be a group; let $i_{\alpha} : G_{\alpha} \to G$ be a family of homomorphisms. If each $i_{\alpha}$ is a monomorphsm and $G$ is the free product of groups $i_{\alpha}(G_{\alpha}),$ then $G$ satisfies the following condition:
+Given a group $H$ and a family of homomorphisms $h_{\alpha} : G_{\alpha} \to G$ there exists a homomorphism $h: G \to H$ such that $h \circ i_{\alpha} = h_{\alpha}$ for each $\alpha$. Furthermore, $h$ is unique.
+\begin{proof}
+We follow the proof for direct sums. The only part that requires proof is the statement that if the extension condition holds, then each $i_{a}$ is a monomorphism. Given an index $\beta$, set $H = G_{\beta}$ and let $h_{\alpha}: G_{\alpha} \to H$ be the identity homomorphism if $\alpha = \beta$, and the trivial homomorphism if $\alpha \neq \beta$. Let $h : G \to H$ be the hypothesized extension. Then, in particular, $h \circ i_{\beta} = h_{\beta}$; it follows that $i_{\beta}$ is injective.
+\end{proof}
+Next, we need to proof the actual theorem, which follows almost directly from the above lemma. The theorem states:
+Let $\{G_{\alpha}\}_{\alpha \in J}$ be a family of groups. Suppose $G$ and $G'$ are groups and $i_{\alpha}: G_{\alpha} \to G$ and $i'_{\alpha}: G_{\alpha} \to G'$ are families of monomorphisms, such that the families $\{i_{\alpha}(G_{\alpha})\}$ and $\{i'_{\alpha}(G_{\alpha}) \}$ generate $G$ and $G'$, respectively. If both $G,G'$ have the extension property stated in the preceding lemma, then there is a unique isomorphism $\phi: G \to G'$ such that $\phi \circ i_{\alpha} = i'_{\alpha}$ for all $\alpha$.
+\begin{proof}
+We can apply the preceding lemma multiple times! Since $G$ is the external direct product of $G_{\alpha}$ and $\{i'_{\alpha}\}$ is a family of homomorphisms, there exists a unique homomorphism $\phi: G \to G'$ such that $\phi \circ i_{\alpha} = i_{\alpha}'$ for each $\alpha$. Similarly, since $G'$ is the external direct product of the $G_{\alpha}$ and $\{i_{\alpha}\}$ is a family of homomorphisms, there exists a unique homomorphism $\psi \circ i_{\alpha}' = i_{\alpha}$ for each $\alpha$. Now $\psi \circ \phi: G \to G$ has the property that $\psi \circ \phi \circ i_{\alpha} = i_{\alpha}$ for each $\alpha$; since the identity map of $G$ has the sample property, by uniqueness, $\psi \circ \phi$ must equal the identity map of $G$. By a similar argument, $\phi \circ \psi$ must equal the identity map of $G'$. Therefore $\phi$ is the unique isomorphism for which $\phi \circ i_{\alpha} = i'_{\alpha}$
+\end{proof}
+\end{answer}
+
+\begin{answer}
+\begin{enumerate}
+\item My intuition is no, though I'm not entirely sure on this one. My reasoning has to do with how I've constructed covering spaces on previous homework assignments. Suppose there exists some graph with a single vertex. Then it must be the case that is has an even number of edges, if it is finite (can we have infinite graphs?). I will assume that infinite graphs are disallowed for the purposes of this question.\\
+
+From the above, to generate a covering space, we must have the the space is homeomorphic to our original graph near the vertex point. However, we note that for this to be the case, near the vertex point we must have an even number of edges intersecting with the vertex. The covering space drawn in the problem has exactly $7$ edges intersecting, which contradicts what we know, therefore it cannot be the covering space of a finite graph with a single vertex.
+\item I believe the answer to this question is yes. The finite space would consists of two vertices, $a,b$. Each vertex has three lobes (cyclic paths) $\alpha, \beta, \gamma$, giving each vertex exactly $6$ edges. Then note that vertex $a$ has an outgoing edge $\delta$ and the vertex $b$ has an incoming edge $\delta$.\\
+
+Actually, the above does not work. Never mind. I'll give it some more thought.
+\end{enumerate}
+\end{answer}
+
+\end{document}

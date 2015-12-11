@@ -1,0 +1,293 @@
+\documentclass[12pt]{article}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage[margin=1in]{geometry}
+
+
+% Create answer counter to keep track of seperate responses
+\newcounter{AnswerCounter}
+\newcounter{SubAnswerCounter}
+\setcounter{AnswerCounter}{1}
+\setcounter{SubAnswerCounter}{1}
+
+% Create answer environment which uses counter
+\newenvironment{answer}[0]{
+  \setcounter{SubAnswerCounter}{1}
+  \bigskip
+  \textbf{Solution \arabic{AnswerCounter}}
+  \\
+  \begin{small}
+}{
+  \end{small}
+  \stepcounter{AnswerCounter}
+}
+
+\newenvironment{subanswer}[0]{
+  (\alph{SubAnswerCounter})
+}{
+ \bigskip
+  \stepcounter{SubAnswerCounter}
+}
+
+% Allows easy use of vectors
+\newcommand{\vect}[1]{\vec{\boldsymbol{#1}}}
+
+% Setting up the title
+\title{Mathematics 131 \\
+Topology I}
+\author{
+        Luis Antonio Perez \\
+        HUID: 70871564 \\
+        Harvard College \\
+        \href{mailto:luisperez@college.harvard.edu}{luisperez@college}
+}
+\date{\today}
+
+% Custom Header information on each page
+\pagestyle{fancy}
+\lhead{HUID: 70871564}
+\rhead{Perez - \thepage}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+% Title page is page 0
+\setcounter{page}{0}
+
+\begin{document}
+
+\begin{answer}[Page 330, \#3]
+We say that a space $X$ is contractible if the identity map $i_X: X \to X$ is nullhomotopic.
+\begin{enumerate}
+\item We show that $I$ and $\mathbb{R}$ are contractible.
+\begin{proof}
+For either space, simply consider the homotopy defined by:
+$$
+F(x,t) = (1-t)i_X(x)
+$$
+It is immediately clear that $F: X \times I \to X$ is continuous and that $F(x,0) = i_X(x)$ and $F(x,1) = 0$, therefore $i_X$ is nullhomotopic.
+\end{proof}
+\item We now show that a contractible space is path connected.
+\begin{proof}
+Suppose we have $p_1,p_2 \in X$ where $X$ is a contractible space. We want to construct a path from $p_1 \to p_2$. Then by definition of contractible, there exists a homotopy $F: X \times I \to X$ such that $F(x,0) = i_X$ and $F(x,1) = c$ for some $c \in X$. Then define the functions $f_{p_1}: I \to X$ and $f_{p_2}: I \to X$ as
+\begin{align*}
+f_{p_1}(t) &= F(p_1,t) \\
+f_{p_2}(t) &= F(p_2,t)
+\end{align*}
+Then note that $f_{p_i}(0) = p_i$ and $f_{p_i}(1) = c$, which defines a path from $p_i$ to $c$. Therefore, $p_1$ and $p_2$ are path connected.
+\end{proof}
+\item We show that if $Y$ is contractible, then for any space $X$, $[X,Y]$ has a single element.
+\begin{proof}
+Suppose we have continuous $f: X \to Y$. Because $Y$ is contractible, there exists a homotopy $F: Y \times I \to Y$ between $i_Y$ and the constant map $c \in Y$. Then
+$$
+H(x,t) = F(f(x),t)
+$$
+is a homotopy between $f: X \to Y$ and $g: X \to Y$, defined as $g(x) = c$. This is the only element of $[X,Y]$ because all functions $f$ are homotopic to map $g$.
+\end{proof}
+\item We show that if $X$ is contractible and $Y$ is path connected, then $[X,Y]$ has a single element.
+\begin{proof}
+We know $X$ is contractible, so we have a homotopy $F$ from $i_X$ to the constant map $c \in X$. Suppose we have a continuous $f: X \to Y$. Then because $Y$ is path connected, there exists a path, defined as $p: I \to Y$ such that $p(0) = f(c)$ and $p(1) = y$ for a fixed point $y \in Y$. Then consider the following homotopy $H$
+$$
+H(x,t) =
+\begin{cases}
+f(F(x,2t)) & t \in [0,\frac{1}{2}] \\
+p(2t - 1) & t \in (\frac{1}{2}, 1]
+\end{cases}
+$$
+Note that $H(x,0) = f(F(x,0)) = f(i_X(x)) = f(x)$ and $H(x,1) = y$. Additionally, the function is continuous by the pasting lemma because $f(F(x,1)) = f(c) = p(0)$. Therefore, every continuous function $f: X \to Y$ is homotopic to the map $g(x) = y$.
+\end{proof}
+\end{enumerate}
+\end{answer}
+
+\begin{answer}[Page 335, \#6]
+We show that if $X$ is path connected, the homomorphism induced by a continuous map is independent of base point, up to isomorphisms of the groups involved. More precisely, let $h: X \to Y$ be continuous, with $h(x_0) = y_0$ and $h(x_1) = y_1$. Let $\alpha$ be a path in $X$ from $x_0$ to $x_1$, and let $\beta = h \circ \alpha$. We show that:
+$$
+\hat{\beta} \circ (h_{x_0})_* = (h_{x_1})_* \circ \hat{\alpha}
+$$
+\begin{proof}
+We show this directly, expanding the defintion of $\hat{\beta} \circ (h_{x_0})_*$ for $[f] \in \pi_1(X,x_0)$:
+\begin{align*}
+(\hat{\beta} \circ (h_{x_0})_*)[f] &= \hat{\beta}(h_{x_0}([f])) \\
+&= \hat{\beta}([h \circ f]) \\
+&= [\bar{\beta}] * [h \circ f] * [\beta] \\
+&= [h \circ \bar{\alpha}] * [h \circ f] * [h \circ \alpha] \\
+&= [h \circ (\bar{\alpha} * f * \alpha)] \\
+&= (h_{x_1})_*([\bar{\alpha} * f * \alpha]) \\
+&= (h_{x_1})_* (\hat{\alpha}([f]))
+\end{align*}
+The above proves the claim :) See the problem statement in the textbook for a diagram.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 347, \#6]
+We consider the functions $g,h: S^1 \to S^1$ given by $g(z)= z^n$ and $h(z) = \frac{1}{z^n}$ and compute the induced homomorphisms $g_*, h_*$ of the infinite cyclic group $\pi_1(S_1, b_0)$ into itself.
+\begin{proof}
+We note that the group is cyclic, so we only consider the image of its generator, given by:
+$$
+f(t) = \cos (2\pi t) + i \sin (2 \pi t)
+$$
+for $t \in [0,1]$. Then if we apply $g$ to our generator, we have:
+$$
+(g \circ f)(t) = g(\cos (2 \pi t) + i \sin (2 \pi t)) = (\cos (2 \pi t) + i \sin (2 \pi t))^n = \cos (2\pi nt) + i \sin (2 \pi nt)
+$$
+Note that the above is a loop which goes $n$ times around the circle, in the direction of $f$, so we have:
+$$
+g_*([f]) = [g \circ f] = [f]* \cdots * [f]
+$$
+And now for $h$, we have:
+$$
+(h \circ f)(t) = h(\cos (2 \pi t) + i \sin (2 \pi t)) = (\cos (2 \pi t) + i \sin (2 \pi t))^{-n} = \cos (2\pi nt) - i \sin (2 \pi nt)
+$$
+Note that the above is a loop which goes $n$ times around the circle, in the direction opposite to of $f$, we we have:
+$$
+h_*([f]) = [h \circ f] = [\bar{f}]* \cdots * [\bar{f}]
+$$
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 347. \#7]
+Following the proof outlined in Theorem 54.5, we show that the fundamental group of the torus is isomorphic to the group $\mathbb{Z}^2$.
+\begin{proof}
+Let $p': \mathbb{R} \to S^1$ be the covering map given by $p'(x) = (\cos 2\pi x, \sin 2\pi x)$. Then using Theorem 53.3 in Munkres, we can define a new covering map $p: \mathbb{R}^2 \to S^1 \times S^1$ defined as:
+$$
+p(x,y) = (\cos 2\pi x, \sin 2\pi x, \cos 2\pi y, \sin 2\pi y)
+$$
+The above is the standard cover of the torus. Let $e_0 = (0,0)$ and let $b_0 = p(e_0)$. Then note that $p^{-1}(b_0)$ is the set $\mathbb{Z}^2$. Since $\mathbb{R}^2$ is simply connected, the lifting correspondence defined as:
+$$
+\phi: \pi_1(S^1 \times S^1, b_0) \to \mathbb{Z}^2
+$$
+is bijective by Theorem 54.4. Therefore, we just need to show that $\phi$ is a homeomorphism.\\
+
+Given $[f],[g]$ in $\pi_1(S_1 \times S_1, b_0)$, let $\tilde{f}, \tilde{g}$ be their corresponding liftings to paths on $\mathbb{R}^2$ beginnning at $(0,0)$. Let $(m,n) = \tilde{f}(1)$ and $(i,j) = \tilde{g}(1)$. Given that these points are in $p^{-1}(b_0)$, we know $m,n,i,j \in \mathbb{Z}$. First, we know that:
+$$
+\phi([f]) + \phi([g]) = (m,n) + (i,j) = (m + i, n + j)
+$$
+Now we continue the proof and construct the path $\tilde{\tilde{g}}$ defined to be:
+$$
+\tilde{\tilde{g}}(t) = (n,m) + \tilde{g}(t)
+$$
+on $\mathbb{R}^2$ which is the translate of $\tilde{g}$ which begins at $(m,n)$ rather than $(0,0)$. Then we have that:
+\begin{align*}
+(p \circ \tilde{\tilde{g}})(t) &= p((m,n) + \tilde{g}(t) \\
+&= (\cos 2\pi(m + \tilde{g}(t)_1), \sin 2\pi(m + \tilde{g}(t)_1), \cos 2\pi(n + \tilde{g}(t)_2), \sin 2\pi(n + \tilde{g}(t)_2) \\
+&= (\cos 2\pi\tilde{g}(t)_1, \sin 2\pi\tilde{g}(t)_1, \cos 2\pi\tilde{g}(t)_2, \sin 2\pi\tilde{g}(t)_2) \\
+p \circ \tilde{g}(t) \\
+g(t)
+\end{align*}
+Therefore, $\tilde{\tilde{g}}$ is a lifting of $g$. Therefore, the product $\tilde{f} * \tilde{\tilde{g}}$ is a well defined path, and it is a lifting of $f * g$ that begins as $(0,0)$. We check that it is a lifting:
+\begin{align*}
+(p \circ (\tilde{f} * \tilde{\tilde{g}}) (t) &=
+\begin{cases}
+p(\tilde{f}(2t) & t \in [0,\frac{1}{2}] \\
+p(\tilde{\tilde{g}}(2t - 1) & t \in (\frac{1}{2}, 1] 
+\end{cases} \tag{definition}\\
+&= \begin{cases}
+f(2t) & t \in [0,\frac{1}{2} \\
+g(2t - 1) & t \in (\frac{1}{2}, 1]
+\end{cases} \tag{$\tilde{f}$ and $\tilde{\tilde{g}}$ are liftings} \\
+f * g(t)
+\end{align*}
+We also have:
+$$
+\tilde{\tilde{g}}(1) = (m + i, n + j)
+$$
+Therefore, since $[f] * [g]$ begins at $b_0$, $\phi([f] * [g])$ is well-defined, and we have:
+$$
+\phi([f] * [g]) = (\tilde{f} * \tilde{\tilde{g}})(1) = (m + i, n + j)
+$$
+Thus, we can conclude that:
+$$
+\phi([f] * [g]) = \phi([f]) + \phi([g])
+$$
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 353, \#2]
+We show that if $h: S^1 \to S^1$ is nullhomotopic, then $h$ has a fixed point and $h$ maps some point $x$ to its antipode, $-x$.
+\begin{proof}
+Immediately, by Lemma 55.3 we know that $h$ extends to a continuous map $k: B^2 \to S^1$. Note that $S_1 \subset B_1$, so we can expand the range of $k$ (without changing it) so that $k: B^2 \to B^2$. Then by Theorem 55.6, there exists a point $p \in B^2$ such that $k(p) = p$. Note that the image of $k$ is a subset of $S^1$, therefore we know that $p \in S^1$. Thus, we have that:
+\begin{align*}
+h(p) &= k(p) \tag{the functions are equivalent on $S^1$} \\
+&= p
+\end{align*}
+Therefore, $h$ has a fixed point $p \in S^1$. Using the results from above, we can now show that $h$ maps some point $x$ to its antipode, $-x$. To see this, consider the map $f: S^1 \to S^1$ defined as $f(x) = -x$. Then note that $f \circ h: S^1 \to S_1$ is nullhomotopic. By the above, there exists a $p \in S^1$ such that:
+\begin{align*}
+(f \circ h)(p) &= p \\
+\implies -h(p) &= p \\
+\implies h(p) = -p
+\end{align*}
+Therefore, $h$ maps the point $p$ to its antipode.
+\end{proof}
+\end{answer}
+
+\begin{answer}[Page 353, \#4]
+We are given the fact that $\forall n$, there is no retraction $r : B^{n+1} \to S^1$. We first use this fact to prove a stronger version of Lemma 55.3 (generalized to larger dimensions), letting $h: S^n \to X$ be a continuous map, $h$ is nulhomotopic if and only if $h$ extends to a continuous map $k: B^{n+1} \to X$.
+\begin{proof}
+Suppose $h$ is nulhomotopic. Then let $H: S^{n} \times I \to X$ be a homotopy between $h$ and a constant map. Now consider the map $\pi: S^n \times I \to B^{n+1}$ defined as:
+$$
+\pi(x,t) = (1-t)x
+$$
+Then $\pi$ is continuous, closed, and surjective, so it is a quotient map. It collapses the point $S^n \times \{1\}$ to the point $0$, and is otherwise injective. Because $H$ is constant on $S^1 \times \{1\}$,it induces via the quotient map $\pi$, a continuous map $k: B^{n+1} \to X$ that is an extension of $h$. \\
+
+For the other direction, suppose that $k$ is an extension of $h$. Then $\pi \circ k$ is a homotopy between $h$ and the constant map (see Figure 55.1 in Munkres).  
+\end{proof}
+With the above, we can now prove the assertions in the general case.
+\begin{enumerate}
+\item The identity map $i: S^n \to S^n$ is not nulhomotopic. 
+\begin{proof}
+We proof by contradiction. Suppose the map $i: S^n \to S^n$ were nulhomotopic. Then by the generalized version of Lemma 55.3 above, $i$ could be extendable into $k: B^{n+1} \to S^n$. However, note that $S^n \subset B^{n+1}$, and therefore $k$ is a retraction of $B^{n+1}$ onto $S^n$. This is a contradiction on the fact we're given.
+\end{proof}
+\item The inclusion map $j: S^n \to \mathbb{R}^{n+1} - \{0\}$ it not nulhomotopic. 
+\begin{proof}
+Again, we prove by contradiction. Suppose $j$ were nulhomotopic, then by the above lemma, $j$ is extendable onto the map $k: B^{n+1} \to \mathbb{R}^{n+1} - \{0\}$. Note that there exists a retract $r: \mathbb{R}^{n+1} - \{0\} \to S^n$ given by $h(x) = \frac{x}{||x||}$. Therefore, if we compose the two maps, we have a new map $h \circ k: B^{n+1} \to S^n$, which is a retraction of $B^{n+1}$ onto $S^n$. Again, this is a contradiction.  
+\end{proof}
+\item We now show that every non-vanishing vector field on $B^{n+1}$ points directly outward at some point of $S^n$, and directly inwared at some point of $S^n$. To prove this, we generalize Theorem 55.5.
+\begin{proof}
+A vector field on $B^{n+1}$ is an ordered pair $(x,v(x))$ where $x \in B^{n+1}$ and $v$ is a continuous map of $B^{n+1}$ into $\mathbb{R}^{n+1}$. To say that this vector field is non-vanishing means that $v(x) \neq 0$ for every $x$. \\
+
+We suppose first that $v(x)$ does not point directly inward at any point $x \in S^n$ and work to derive a contradiction. Consider the map $v: B^{n+1} \to \mathbb{R}^{n+1} - \{0\}$, and let $w$ be the restriction of $v$ onto $S^n$. By the above lemma, because the map $w$ extends to $v$, it is nulhomotopic. \\
+
+However, on the other hand, $w$ is homotopic to the inclusion map $j: S^n \to \mathbb{R}^2 - \{0\}$. The homotopy is given by:
+$$
+F(x,t) = tx + (1-t)w(x)
+$$
+for $x \in S^n$. We need to verify that $F: S^n \times [0,1] \to \mathbb{R}^{n+1} - \{0\}$. Note that $F(x,0) = w(x)$ and $F(x,1) = x$, which are both non-zero. Suppose that $F(x,t) = 0$ for some $t \in (0,1)$. Note that this implies that $\frac{t'}{t' - 1}x =w(x)$, contradicting our assumption about $v(x)$ (and hense $w(x)$ not pointing directly inward! Therefore, it folows that the range of $F$ is $\mathbb{R}^{n+1} - \{0\}$.\\
+
+However, this implies that there exist a homotopy between the inclusion map and the constant map, therefore $j$ is nulhomotopic. This contradics what we showed in (b). Therefore, our assumption must be incorrect. \\
+To show that $v$ points directly outward at some point of $S^n$, we apply the result just proved to the vector field $(x, -v(x))$. 
+\end{proof}
+\item Every continuous map $f: B^{n+1} \to B^{n+1}$ has a fixed point! This is just a generalization of Theorem 55.6.
+\begin{proof}
+We proof by contradiction. Suppose that $f(x) \neq x$ for every $x \in B^{n+1}$. Then defining $v(x) = f(x) - x$ gives us a non-vanishing vector field $(x,v(x))$ on $B^{n+1}$. Therefore, by $(c)$, there exists a point of $S^n$ where the vector field points directly inward. This implies:
+\begin{align*}
+v(x) &= ax \tag{$x > 0$} \\
+\implies f(x) - x &= ax \\
+f(x) = (1+a)x
+\end{align*}
+However, note that the $1 + a > 1$, therefore for the point $x$ above, $f(x)$ would lie outside the $B^{n+1}$, a contradiction. Therefore, it must be the case that a fixed point exists.
+\end{proof}
+\item We show that ever $n+1$ by $n+1$ matrix with positive, real entries has a positive eigenvalue. This is a generalization of Corollary 55.7. 
+\begin{proof}
+Consider the matrix $A$ with positive, real-valued entries. Let $T: \mathbb{R}^{n+1} \to \mathbb{R}^{n+1}$ be the linear transformation whose matrix (relative to the standard basis for $\mathbb{R}^{n+1}$) is $A$. Let $Q$ be the intersection of the $n$-sphere $S^n$ with the first octant:
+$$
+\{(x_1,\cdots,x_{n+1}) \mid x_{n+1} \geq 0\}
+$$
+of $\mathbb{R}^{n+1}$. Note that $Q$ is homeomorphic to $B^{n+1}$, so that $(d)$ also holds for $Q$.
+
+Then note that $x \in Q$ implies that all entries of $x$ are non-negative and at least one is positive (because the origin is NOT contained in $S^n$). Now, $T(x)$ must all be a vector with all positive entries. As a result, the map $x \to \frac{T(x)}{||T(x)||}$ is a continuous map of $Q$ to itself. Therefore, by $(d)$, there exists $x_0 \in Q$ such that:
+$$
+T(x_0) = ||T(x_0)||x_0
+$$
+So that $T$ (and therefore the matrix $A$) has the positive, real eigenvalue $||T(x_0)||$. 
+\end{proof}
+\item We show that if $h: S^n \to S^n$ is nulhomotopic, then $h$ has a fixed point and $h$ maps some point $h$ to its antipode $-x$. This is a generalization of Problem 2 above. 
+\begin{proof}
+By the general lemma proved at the beginning of this problem, if $h$ is nulhomotopic then there exists an extension $k: B^{n+1} \to S^n$. We can consider the expanded range of the map to be $k: B^{n+1} \to B^{n+1}$ because $S_n \subset B^{n+1}$. Then by $(c)$ and continuity of $k$, there exists a point $p \in B^{n+1}$ such that $k(p) = p$. Note that the image of $k$ is $S^n$, so we know that $p \in S^n$. Therefore, we know that $h(p) = k(p) = p$ by extension of $h$ to $k$, and therefore $p$ is the fixed point of $h$.\\
+
+To show that $h$ maps some point $x$ to its antipode $-x$, we consider the continuous function $f: S^n \to S^n$ given by $f(x) = -x$, then $f \circ h$ is nulhomotopic, and by the above, there exists a fixed point $x$ such that $(f\circ h)(x) = x \implies -h(x) = x$, and we are done! 
+\end{proof}
+\end{enumerate}
+\end{answer}
+\end{document}

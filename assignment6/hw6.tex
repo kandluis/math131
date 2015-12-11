@@ -105,7 +105,7 @@ F : X \to (\mathbb{R} \times \cdots \times \mathbb{R} \times \mathbb{R}^{k_1} \t
 $$
 by the rule:
 $$
-F(x) &= (\phi_1(x), \cdots, \phi_n(x), h_1(x), \cdots, h_n(x))
+F(x) = (\phi_1(x), \cdots, \phi_n(x), h_1(x), \cdots, h_n(x))
 $$
 Clearly, $F$ is continuous. Now suppose that $F(x) = F(y)$. Then $\phi_i(x) = \phi(y)$ and $h_i(x) = h_i(y)$ for all $i$. Now $\phi_i(x) > 0$ for some $i$, and therefore $\phi_i(y) > 0$, so that $x,y \in U_i$. Then:
 $$
@@ -132,11 +132,20 @@ We check that this is a basis for a topology.
 \begin{enumerate}
 \item Note that the base elements over $X$. Any point $x \in \mathbb{R} - \{0\}$ is contained in an open interval, and any point $x \in \{p,q\}$ is contained in the modified interval $(-a,a) - \{0\} \cup \{p\}$ or $(-a,a) - \{0\} \cup \{q\}$.
 \item Consider $B_1 \cap B_2$. If $B_1$ and $B_2$ are both intervals ( in the normal sense), then we're done. If one is a neighborhood of $p$ (or $q$), of the form $(-a,a) - \{0\} \cup \{p\}$ and the other $(-b,b)$, then the intersection is either empty, or a single interval (which is a basis element). If both $B_1$ and $B_2$ are neighborhood of $p$ or $q$, then the intersection is the union of two intervals when the neighborhoods are of $p,q$, and a neighborhood of the point when the point is the same.
-\item Note that by symmetry, we just need to show that $X - \{p\}$ is homeomorphic to $\mathbb{R}$. The homeomorphism is straight forward, as we can simply map the point $q \to 0$.
-\item $X$ satisfies the $T_1$ axiom, but is not Hausdorff. Note that for any two points not $\{p,q\}$, we can separate the points with two disjoint intervals (in the same way we separate points in the real line). However, for the points $p,q$, every neighborhood containing $p$ does not contain $q$ (and vice-verse), so $T_1$ is satisfied, but every neighborhood containing $p$ must intersect a neighborhood containing $q$ because the intervals $(-a,a) - \{0\} \cup \{p\}$ and $(-b,b) - \{0\} \cup \{q\}$ with form the intersection $(\max\{-a,-b\}, \mid\{a,b\}) - \{0\}$ which is non-empty. Therefore the space is not Hausdorff.
-\item We first show that $X$ has a countable basis. This is because $\mathbb{R}$ has a countable basis, and the elements $(-r,r) - \{q\}$ and $(-r,r) - \{p\}$ for $r \in \mathbb{Q}$ are a basis for $q,p$ respective, each countable. Therefore $X$ has a countable basis.
-Next, note that for each point in $X$, it either belongs to $X - \{p\}$ or $X - \{q\}$ (both open), and by part (b), this sets are homeomorphic to $R$, so this condition is satisfied. Therefore, $X$ satisfies all the conditions of a $1$-manifold except for the Hausdorff condition.
 \end{enumerate}
+\end{subanswer}
+
+\begin{subanswer}
+Note that by symmetry, we just need to show that $X - \{p\}$ is homeomorphic to $\mathbb{R}$. The homeomorphism is straight forward, as we can simply map the point $q \to 0$.
+\end{subanswer}
+
+\begin{subanswer}
+$X$ satisfies the $T_1$ axiom, but is not Hausdorff. Note that for any two points not $\{p,q\}$, we can separate the points with two disjoint intervals (in the same way we separate points in the real line). However, for the points $p,q$, every neighborhood containing $p$ does not contain $q$ (and vice-verse), so $T_1$ is satisfied, but every neighborhood containing $p$ must intersect a neighborhood containing $q$ because the intervals $(-a,a) - \{0\} \cup \{p\}$ and $(-b,b) - \{0\} \cup \{q\}$ will form the intersection $(\max\{-a,-b\}, \max\{a,b\}) - \{0\}$ which is non-empty. Therefore the space is not Hausdorff.
+\end{subanswer}
+
+\begin{subanswer}
+We first show that $X$ has a countable basis. This is because $\mathbb{R}$ has a countable basis, and the elements $(-r,r) - \{q\}$ and $(-r,r) - \{p\}$ for $r \in \mathbb{Q}$ are a basis for $q,p$ respective, each countable. Therefore $X$ has a countable basis.
+Next, note that for each point in $X$, it either belongs to $X - \{p\}$ or $X - \{q\}$ (both open), and by part (b), these sets are homeomorphic to $R$, so this condition is satisfied. Therefore, $X$ satisfies all the conditions of a $1$-manifold except for the Hausdorff condition.
 \end{subanswer}
 \end{answer}
 \end{document}
